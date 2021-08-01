@@ -24,12 +24,12 @@ class CreateMahasiswasTable extends Migration
             $table->text('password', 30);
             $table->text('alamat');
             $table->string('kode_pos', 10);
-            $table->text('photo');
-            $table->date('tanggal_ujian_skripsi');
-            $table->text('judul_skripsi');
-            $table->text('dospem_1');
-            $table->text('dospem_2');
-            $table->string('ipk');
+            $table->text('photo')->nullable();
+            $table->date('tanggal_ujian_skripsi')->nullable();
+            $table->text('judul_skripsi')->nullable();
+            $table->text('dospem_1')->nullable();
+            $table->text('dospem_2')->nullable();
+            $table->string('ipk')->nullable();
 
             $table->timestamps();
         });

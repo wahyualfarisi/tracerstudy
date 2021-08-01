@@ -24,8 +24,8 @@ class CreatePekerjaansTable extends Migration
                   ->onDelete('cascade');
             $table->string('pekerjaan', 150);
             $table->string('jabatan', 150);
-            $table->date('tangal_bekerja');
-            $table->date('tanggal_selesai');
+            $table->date('tanggal_bekerja');
+            $table->date('tanggal_selesai')->nullable();
             $table->integer('isCurrent');
             
             $table->timestamps();

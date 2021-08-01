@@ -17,6 +17,7 @@ class CreateUsersTable extends Migration
             $table->increments('id_user');
             $table->string('email', 100)->unique();
             $table->text('password');
+            $table->string('nama_lengkap', 150);
             $table->enum('level', ['TU','SBK'])->default('TU');
             $table->timestamps();
         });
