@@ -1,0 +1,101 @@
+:root {
+    --color-primary : #bc1e2d;
+    --color-black: #343A40;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Lato', sans-serif;
+}
+
+/* Welcome Start -------------------------------------------------------------- */
+.welcome {
+    background-color: var(--color-primary);
+    display: flex;
+    justify-content: flex-end;
+    padding: .4rem;
+}
+
+.welcome_navigation {
+   padding: 1rem;
+}
+.welcome_navigation > a {
+    text-decoration: none;
+    color: var(--color-black);
+    display: flex;
+    align-items: center;
+    
+}
+.welcome_navigation > a:hover {
+    text-decoration: none;
+    color: var(--color-black);
+    
+}
+.welcome_navigation > a > span {
+    margin-left: 1rem;
+}
+
+.welcome > a {
+    text-decoration: none;
+    color: #fff;
+    font-size: .7rem;
+}
+
+.welcome_main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+}
+
+.welcome_main > img {
+    width: 200px;
+}
+.welcome_main h1 {
+    font-size: 3.5rem;
+    color: #CDBBA7;
+}
+.welcome_main > .welcome_link {
+    margin-top: 5rem;
+    text-decoration: none;
+    background-color: var(--color-primary);
+    color: #fff;
+    padding: .5rem 1rem .5rem 1rem;
+    width: 200px;
+    border-radius: .6rem;
+    text-align: center;
+}
+.welcome_main h3 {
+    color: var(--color-black);
+    font-size: 1rem;
+}
+.welcome_footer {
+   display: flex;
+   justify-content: center;
+   align-content: center;
+}
+.welcome_footer > .welcome_textlink {
+    color: var(--color-black);
+    font-size: .8rem;
+}
+.welcome_textlink a {
+    text-decoration: none;
+}
+/* Welcome End -------------------------------------------------------------- */
+
+
+
+
+/* Welcome Login -------------------------------------------------------------- */
+.welcome_main > .form_login {
+    width: 30vw;
+}
+
+
+/* Welcome Login -------------------------------------------------------------- */
