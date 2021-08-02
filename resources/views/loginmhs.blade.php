@@ -26,7 +26,7 @@
         <h1 class="welcome_heading">Tracer Study</h1>
         <h3 class="welcome_subheading">Login</h3>
 
-        <form class="form_login">
+        <form class="form_login" id="form_login">
             <div class="form-group">
                 <label for="exampleInputEmail1">Email</label>
                 <input 
@@ -36,6 +36,7 @@
                     aria-describedby="emailHelp" 
                     placeholder="Masukan Email"
                     name="email"
+                    required
                 >
                 {{-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> --}}
             </div>
@@ -47,15 +48,16 @@
                     id="exampleInputPassword1" 
                     placeholder="Masukan Password"
                     name="password"
+                    required
                 >
             </div>
             <div class="form-group">
-                <label for="loginAs">Login Sebagai</label>
-                <select name="loginAs" id="loginAs" class="form-control">
+                <label for="level">Login Sebagai</label>
+                <select name="level" id="level" class="form-control" required>
                     <option value=""></option>
                     <option value="mahasiswa">Mahasiswa</option>
-                    <option value="tu">TU</option>
-                    <option value="sbk">Seksi Bidang Kemahasiswaan</option>
+                    <option value="TU">TU</option>
+                    <option value="SBK">Seksi Bidang Kemahasiswaan</option>
                 </select>
             </div>
             <button type="submit" class="btn btn-danger">Masuk</button>
@@ -65,5 +67,17 @@
     <div class="welcome_footer">
         <p class="welcome_textlink">Jika anda belum mempunyai akun, silahkan register <a href="/register">Disini</a> </p>
     </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="{{asset('assets/js/jquery-validation/jquery.validate.js')}}"></script>
+    <script src="{{asset('assets/js/block-ui/jquery.blockUI.js')}}"></script>
+    <script src="{{asset('assets/js/JIC.min.js')}}"></script>
+    <script src="{{asset('src/app-library.js')}}"></script>
+    <script src="{{asset('src/app-controller.js')}}"></script>
+    <script>
+        $(function() {
+            AuthController.login();
+        })
+    </script>
 </body>
 </html>

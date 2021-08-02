@@ -18,3 +18,7 @@ Route::get('/mahasiswa', 'MahasiswaController@index');
 Route::post('/mahasiswa/register', 'MahasiswaController@register');
 Route::post('/mahasiswa/addPekerjaan', 'MahasiswaController@addPekerjaan');
 Route::get('/mahasiswa/{id_mahasiswa}', 'MahasiswaController@show');
+
+
+//Auth Controller
+Route::post('/login', 'api\AuthController@login');

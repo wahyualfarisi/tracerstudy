@@ -1,3 +1,50 @@
+const AuthController = ( (LIB) => {
+
+    const eventListener = () => {
+
+        $('#form_login').on('submit', function(e) {
+            e.preventDefault();
+        }).validate({
+            errorPlacement: function (error, element) {
+                error.css('color','red').css('fontSize', '10px').addClass('right')
+
+                var placement = $(element).data("error");
+                if (placement) {
+                    $(placement).append(error);
+                } else {
+                    error.insertAfter(element);
+                }
+            },
+            submitHandler: function(form){
+                LIB.postRes(
+                    `/api/login`,
+                    form,
+                    'Loading',
+                    res => {
+                        if(res.status){
+                            
+                            localStorage.setItem('payload_tracerstudy', JSON.stringify(res));
+                            location.href = 'app/'
+                        }else{
+                            alert(res.message)
+                        }
+                    },
+                    err => {
+                        console.log(err);
+                    }
+                )
+            }
+        })
+    }
+
+    return {
+        login: () => {
+            eventListener();
+        }
+    }
+})(AppLibrary);
+
+
 const MahasiswaController = ( (LIB, IMG_COMPRESS) => {
 
     const eventListener = () => {
@@ -53,7 +100,6 @@ const MahasiswaController = ( (LIB, IMG_COMPRESS) => {
                     'Loading...',
                     res => {
                         alert(res.message);
-                        
                     },
                     err => {
                         console.log(err)
@@ -74,22 +120,33 @@ const MahasiswaController = ( (LIB, IMG_COMPRESS) => {
 
 const MainController = ( () => {
 
+    let getUser =  JSON.parse(localStorage.getItem('payload_tracerstudy'));
+
     const setRoute = () => {
         let path;
         
 
         if (location.hash) {
-            path = location.hash.substr(2);
+            path = location.hash.substr(1);
             loadContent(path, '.main');
             
         } else {
-            // location.href = '#/dashboard';
-            location.replace('app/#/dashboard')
+            if(getUser){
+                if(getUser.level === 'mahasiswa'){
+                    location.href = '#/formulir';   
+                }else{
+                    location.href = '#/dashboard';
+                }
+            }else{
+                location.href = '/'
+            }
+            
+            // location.replace('app/#/dashboard')
         }
 
         $(window).on('hashchange', function () {
             path = location.hash;
-            loadContent(path.substr(2), '.main');
+            loadContent(path.substr(1), '.main');
         });  
     }
 
@@ -113,10 +170,45 @@ const MainController = ( () => {
         })
     }
 
+    const displayMenu = () => {
+        let getUser = JSON.parse(localStorage.getItem('payload_tracerstudy'));
+        if(getUser){
+            switch(getUser.level){
+                case 'mahasiswa':
+                    $('.menus').html(`
+                        <a href="#/formulir">Dashboard</a>
+                        <a href="#/data-diri">Data Diri</a>
+                        <a href="#/data-pekerjaan">Data Data Pekerjaan</a>
+                    `)
+                return;
+
+                case 'TU':
+                    $('.menus').html(`
+                        <a href="#/dashboard">Dashboard</a>
+                        <a href="#/data-master">Data Master</a>
+                        <a href="#/data-mahasiswa">Data Mahasiswa</a>
+                        <a href="#/jadwal-pengisian">Data Jadwal Pengisian</a>
+                    `)
+                return;
+
+                case 'SBK':
+                    $('.menus').html(`
+                        <a href="#/dashboard">Dashboard</a>
+                        <a href="#/data-master">Data Master</a>
+                        <a href="#/data-mahasiswa">Data Mahasiswa</a>
+                        <a href="#/jadwal-pengisian">Data Jadwal Pengisian</a>
+                        <a href="#/laporan">Laporan</a>
+                    `)
+                return;
+            }
+        }
+    }
+
 
     return {
         init: () => {
             setRoute();
+            displayMenu()
         }
     }
 })();

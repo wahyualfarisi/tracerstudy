@@ -19,7 +19,7 @@
         <a class="welcome_link" href="/login-mhs">Login</a>
     </div>
     <div class="welcome_footer">
-        <p class="welcome_textlink">Jika anda belum mempunyai akun, silahkan register <a href="/app">Disini</a> </p>
+        <p class="welcome_textlink">Jika anda belum mempunyai akun, silahkan register <a href="/register">Disini</a> </p>
     </div>
 </body>
 </html>

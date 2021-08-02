@@ -27,11 +27,15 @@ Route::get('/register', function() {
 
 
 Route::get('/app', 'MainController@index');
-Route::get('/app/dashboard', 'MainController@dashboard');
-Route::get('/app/data-master', 'MainController@dataMaster');
-Route::get('/app/data-mahasiswa', 'MainController@dataMahasiswa');
-Route::get('/app/jadwal-pengisian', 'MainController@jadwalPengisian');
-Route::get('/app/laporan', 'MainController@laporan');
+Route::get('/dashboard', 'MainController@dashboard');
+Route::get('/data-master', 'MainController@dataMaster');
+Route::get('/data-mahasiswa', 'MainController@dataMahasiswa');
+Route::get('/jadwal-pengisian', 'MainController@jadwalPengisian');
+Route::get('/setSession', 'MainController@setSession');
+Route::get('/laporan', 'MainController@laporan');
 
-//Mahasiswa Controller
+//only mahasiswa
+Route::get('/formulir', 'MainController@formulir');
+Route::get('/data-diri', 'MainController@datadiri');
+Route::get('/data-pekerjaan', 'MainController@datapekerjaan');
 

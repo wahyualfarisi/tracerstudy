@@ -69,11 +69,10 @@ body {
     <img src="{{ asset('assets/img/logo2.png') }}" />
   </div>
   <h4>Menu</h4>
-  <a href="#/dashboard">Dashboard</a>
-  <a href="#/data-master">Data Master</a>
-  <a href="#/data-mahasiswa">Data Mahasiswa</a>
-  <a href="#/jadwal-pengisian">Data Jadwal Pengisian</a>
-  <a href="#/laporan">Laporan</a>
+
+  <div class="menus">
+    
+  </div>
 </div>
 
 <div class="main"></div>
