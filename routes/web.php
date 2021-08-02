@@ -32,3 +32,6 @@ Route::get('/app/data-master', 'MainController@dataMaster');
 Route::get('/app/data-mahasiswa', 'MainController@dataMahasiswa');
 Route::get('/app/jadwal-pengisian', 'MainController@jadwalPengisian');
 Route::get('/app/laporan', 'MainController@laporan');
+
+//Mahasiswa Controller
+

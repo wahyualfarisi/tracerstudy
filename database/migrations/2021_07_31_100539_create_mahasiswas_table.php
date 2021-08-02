@@ -30,6 +30,7 @@ class CreateMahasiswasTable extends Migration
             $table->text('dospem_1')->nullable();
             $table->text('dospem_2')->nullable();
             $table->string('ipk')->nullable();
+            $table->enum('status', ['','pending','verified'])->default('');
 
             $table->timestamps();
         });

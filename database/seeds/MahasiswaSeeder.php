@@ -29,6 +29,7 @@ class MahasiswaSeeder extends Seeder
                 'dospem_1' => 'B. Gunawan',
                 'dospem_2' => 'Fauziah',
                 'ipk' => '40',
+                'status' => 'verified',
                 'created_at' => date('Y-m-d'),
                 'updated_at' => date('Y-m-d')
             ]
