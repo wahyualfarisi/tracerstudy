@@ -11,9 +11,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;1,400&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header class="welcome">
-        <a href="#">Login Admin</a>
-    </header>
+    <header class="welcome"></header>
     <div class="welcome_main">
         <img src="{{ asset('assets/img/logo.png') }}" /> 
         <h1 class="welcome_heading">Tracer Study</h1>
@@ -21,7 +19,7 @@
         <a class="welcome_link" href="/login-mhs">Login</a>
     </div>
     <div class="welcome_footer">
-        <p class="welcome_textlink">Jika anda belum mempunyai akun, silahkan register <a href="#">Disini</a> </p>
+        <p class="welcome_textlink">Jika anda belum mempunyai akun, silahkan register <a href="/app">Disini</a> </p>
     </div>
 </body>
 </html>

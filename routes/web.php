@@ -20,3 +20,15 @@ Route::get('/', function () {
 Route::get('/login-mhs', function() {
     return view('loginmhs');
 });
+
+Route::get('/register', function() {
+    return view('register');
+});
+
+
+Route::get('/app', 'MainController@index');
+Route::get('/app/dashboard', 'MainController@dashboard');
+Route::get('/app/data-master', 'MainController@dataMaster');
+Route::get('/app/data-mahasiswa', 'MainController@dataMahasiswa');
+Route::get('/app/jadwal-pengisian', 'MainController@jadwalPengisian');
+Route::get('/app/laporan', 'MainController@laporan');

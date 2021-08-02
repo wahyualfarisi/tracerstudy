@@ -24,24 +24,46 @@
     <div class="welcome_main">
         <img src="{{ asset('assets/img/logo.png') }}" /> 
         <h1 class="welcome_heading">Tracer Study</h1>
-        <h3 class="welcome_subheading">Login Mahasiswa</h3>
+        <h3 class="welcome_subheading">Login</h3>
 
         <form class="form_login">
             <div class="form-group">
                 <label for="exampleInputEmail1">Email</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Masukan Email">
+                <input 
+                    type="email" 
+                    class="form-control" 
+                    id="exampleInputEmail1" 
+                    aria-describedby="emailHelp" 
+                    placeholder="Masukan Email"
+                    name="email"
+                >
                 {{-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> --}}
             </div>
             <div class="form-group">
                 <label for="exampleInputPassword1">Password</label>
-                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Masukan Password">
+                <input 
+                    type="password" 
+                    class="form-control"
+                    id="exampleInputPassword1" 
+                    placeholder="Masukan Password"
+                    name="password"
+                >
+            </div>
+            <div class="form-group">
+                <label for="loginAs">Login Sebagai</label>
+                <select name="loginAs" id="loginAs" class="form-control">
+                    <option value=""></option>
+                    <option value="mahasiswa">Mahasiswa</option>
+                    <option value="tu">TU</option>
+                    <option value="sbk">Seksi Bidang Kemahasiswaan</option>
+                </select>
             </div>
             <button type="submit" class="btn btn-danger">Masuk</button>
         </form>
 
     </div>
     <div class="welcome_footer">
-        <p class="welcome_textlink">Jika anda belum mempunyai akun, silahkan register <a href="#">Disini</a> </p>
+        <p class="welcome_textlink">Jika anda belum mempunyai akun, silahkan register <a href="/register">Disini</a> </p>
     </div>
 </body>
 </html>
