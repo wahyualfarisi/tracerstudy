@@ -7,6 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class Mahasiswa extends Model
 {
     protected $table = 'mahasiswas';
+    protected $primarykey = 'id_mahasiswa';
+    protected $hidden = [
+        'password'
+    ];
+    
     protected $fillable = [
         'id_mahasiswa',
         'nim',
@@ -26,6 +31,10 @@ class Mahasiswa extends Model
         'ipk',
         'status'
     ];
+
+    public function getPekerjaans(){
+        return $this->hasMany('App\Pekerjaan', 'id_mahasiswa', 'id_mahasiswa');
+    }
 
     
 }

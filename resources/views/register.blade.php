@@ -26,15 +26,23 @@
         <h1 class="welcome_heading">Tracer Study</h1>
         <h3 class="welcome_subheading">Registrasi</h3>
 
-        <form class="form_login">
+        <form class="form_login" id="form_registrasi">
             <div class="form-group">
                 <label for="nim">Nim</label>
-                <input type="text" class="form-control" id="nim" aria-describedby="nim" placeholder="Masukan nim">
+                <input 
+                    type="text" 
+                    class="form-control" 
+                    id="nim" 
+                    aria-describedby="nim" 
+                    placeholder="Masukan nim"
+                    name="nim"
+                    required
+                >
                 {{-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> --}}
             </div>
             <div class="form-group">
                 <label for="prodi">Prodi</label>
-                <select name="prodi" id="prodi" class="form-control">
+                <select name="kode_prodi" id="prodi" class="form-control" required>
                     <option value=""></option>
                     <option value="SI">Sistem Informasi</option>
                     <option value="SK">Sistem Komputer</option>
@@ -42,40 +50,105 @@
             </div>
             <div class="form-group">
                 <label for="nama_lengkap">Nama Lengkap</label>
-                <input type="text" class="form-control" id="nama_lengkap" aria-describedby="nama_lengkap" placeholder="Masukan nama lengkap">
+                <input 
+                    type="text" 
+                    class="form-control" 
+                    id="nama_lengkap" 
+                    name="nama_lengkap"
+                    aria-describedby="nama_lengkap" 
+                    placeholder="Masukan nama lengkap"
+                    required
+                >
                 {{-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> --}}
             </div>
             <div class="form-group">
                 <label for="exampleInputEmail1">Email</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Masukan Email">
+                <input 
+                    type="email" 
+                    class="form-control" 
+                    id="exampleInputEmail1" 
+                    name="email"
+                    aria-describedby="emailHelp" 
+                    placeholder="Masukan Email"
+                    required
+                >
                 {{-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> --}}
             </div>
 
             <div class="form-group">
                 <label for="alamat">Alamat</label>
-                <input type="text" class="form-control" id="alamat" aria-describedby="emailHelp" placeholder="Masukan Alamat">
+                <input 
+                    type="text" 
+                    class="form-control" 
+                    id="alamat" 
+                    name="alamat"
+                    aria-describedby="emailHelp" 
+                    placeholder="Masukan Alamat"
+                    required
+                >
+                {{-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> --}}
+            </div>
+
+            <div class="form-group">
+                <label for="no_telepon">No Telepon</label>
+                <input 
+                    type="text" 
+                    class="form-control" 
+                    id="no_telepon" 
+                    name="no_telepon"
+                    aria-describedby="emailHelp" 
+                    placeholder="Masukan No Telepon"
+                    required
+                >
                 {{-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> --}}
             </div>
 
             <div class="form-group">
                 <label for="kode_pos">Kode pos</label>
-                <input type="text" class="form-control" id="kode_pos" aria-describedby="emailHelp" placeholder="Masukan Kode Pos">
+                <input 
+                    type="text" 
+                    class="form-control" 
+                    id="kode_pos" 
+                    name="kode_pos"
+                    aria-describedby="emailHelp" 
+                    placeholder="Masukan Kode Pos"
+                    required
+                >
                 {{-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> --}}
             </div>
 
             <div class="form-group">
                 <label for="judul_skripsi">Judul Skripsi</label>
-                <input type="text" class="form-control" id="judul_skripsi" placeholder="Judul Skripsi">
+                <input 
+                    type="text" 
+                    class="form-control" 
+                    id="judul_skripsi" 
+                    name="judul_skripsi"
+                    placeholder="Judul Skripsi"
+                    required
+                >
             </div>
 
             <div class="form-group">
                 <label for="tahun_lulus">Tahun Lulus</label>
-                <input type="text" class="form-control" id="tahun_lulus" placeholder="Tahun Lulus">
+                <input 
+                    type="text" 
+                    class="form-control" 
+                    id="tahun_lulus" 
+                    name="tahun_lulus"
+                    placeholder="Tahun Lulus"
+                    required
+                >
             </div>
 
             <div class="form-group">
                 <label for="photo">Foto</label>
-                <input type="file" class="form-control" id="photo">
+                <input 
+                    type="file" 
+                    class="form-control" 
+                    id="photo"
+                    name="photo"
+                >
             </div>
             <button type="submit" class="btn btn-danger">Masuk</button>
         </form>
@@ -84,5 +157,17 @@
     <div class="welcome_footer">
         
     </div>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="{{asset('assets/js/jquery-validation/jquery.validate.js')}}"></script>
+    <script src="{{asset('assets/js/block-ui/jquery.blockUI.js')}}"></script>
+    <script src="{{asset('src/app-library.js')}}"></script>
+    <script src="{{asset('src/app-controller.js')}}"></script>
+    <script>
+        $(function() {
+            MahasiswaController.init();
+        })
+    </script>
 </body>
 </html>

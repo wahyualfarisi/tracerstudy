@@ -1,3 +1,47 @@
+const MahasiswaController = ( (LIB) => {
+
+    const eventListener = () => {
+
+        $("#form_registrasi").validate({
+            errorPlacement: function (error, element) {
+                error.css('color','red').css('fontSize', '10px').addClass('right')
+
+                var placement = $(element).data("error");
+                if (placement) {
+                    $(placement).append(error);
+                } else {
+                    error.insertAfter(element);
+                }
+            },
+            submitHandler: function(form) {
+           
+                $.ajax({
+                    url: 'api/mahasiswa/register',
+                    type: 'POST',
+                    data: $(form).serialize(),
+                    beforeSend: function() {
+                        console.log('before send')
+                    },
+                    success: function(res) {
+                        alert(res.message)
+                    },
+                    error: function(err) {
+                        console.log(err)
+                    }
+                })
+            }
+           });
+
+    }
+
+    return {
+        init: () => {
+            eventListener();
+        }
+    }
+})(AppLibrary);
+
+
 const MainController = ( () => {
 
     const setRoute = () => {

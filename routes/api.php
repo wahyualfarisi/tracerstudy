@@ -14,4 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/mahasiswa', 'MahasiswaController@index');
 Route::post('/mahasiswa/register', 'MahasiswaController@register');
+Route::post('/mahasiswa/addPekerjaan', 'MahasiswaController@addPekerjaan');
+Route::get('/mahasiswa/{id_mahasiswa}', 'MahasiswaController@show');

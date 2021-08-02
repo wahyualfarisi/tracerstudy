@@ -5,9 +5,42 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Mahasiswa;
+use App\Pekerjaan;
 
 class MahasiswaController extends Controller
 {
+    public function index(Request $request){
+        if($request->filter_status){
+            return response()->json([
+                'status'  => true,
+                'message' => 'Filter By Status',
+                'results' => Mahasiswa::where('status', $request->filter_status)->get()
+            ]);
+        }
+
+        if($request->filter_kode_prodi){
+            return response()->json([
+                'status'   => true,
+                'message'  => 'Filter by prodi',
+                'results'  => Mahasiswa::where('kode_prodi', $request->filter_kode_prodi)->get()
+            ]);
+        }
+
+        return response()->json([
+            'status'   => true,
+            'message'  => 'All mahasiswa',
+            'results'  => Mahasiswa::all()
+        ]);
+    }
+
+    public function show(Request $request, $id_mahasiswa){
+        
+        return response()->json([
+            'status'   => true,
+            'message'  => Mahasiswa::with('getPekerjaans')->where('id_mahasiswa', $id_mahasiswa)->first()
+        ]);
+    }
+
     public function register(Request $request)
     {
         $validate = Validator::make($request->all(), [
@@ -37,7 +70,7 @@ class MahasiswaController extends Controller
             return response()->json([
                 'status'   => false,
                 'message'  => 'Nim sudah ada'
-            ], 404);
+            ]);
         }
 
         $check_email = Mahasiswa::where('email', $request->email)->first();
@@ -45,25 +78,27 @@ class MahasiswaController extends Controller
             return response()->json([
                 'status'   => false,
                 'message'  => 'Email sudah digunakan'
-            ], 404);
+            ]);
         }
 
         $filenametostore = null;
 
 
-        try{
-            $image           = $request->file('photo');
-            $name            = $image->getClientOriginalName();
-
-            $filename        = pathinfo($name, PATHINFO_FILENAME);
-
-            $extension       = $image->getClientOriginalExtension();
-
-            $filenametostore = time().'.'.$extension;
-
-            $add             = $image->storeAs('public/foto/mahasiswa/', $filenametostore);
-        }catch(\Exception $e){
-            $filenametostore = null;
+        if($request->file('photo')){
+            try{
+                $image           = $request->file('photo');
+                $name            = $image->getClientOriginalName();
+    
+                $filename        = pathinfo($name, PATHINFO_FILENAME);
+    
+                $extension       = $image->getClientOriginalExtension();
+    
+                $filenametostore = time().'.'.$extension;
+    
+                $add             = $image->storeAs('public/foto/mahasiswa/', $filenametostore);
+            }catch(\Exception $e){
+                $filenametostore = null;
+            }
         }
 
         $mahasiswa = new Mahasiswa;
@@ -88,6 +123,44 @@ class MahasiswaController extends Controller
             'message' => 'Success register mahasiswa',
             'results' => $mahasiswa
         ]);
-
     }
+
+    public function addPekerjaan(Request $request){
+        $validate = Validator::make($request->all(), [
+            'id_mahasiswa' => 'required',
+            'nama_perusahaan' => 'required',
+            'pekerjaan' => 'required',
+            'jabatan' => 'required',
+            'tanggal_bekerja' => 'required',
+            'tanggal_selesai' => 'required',
+            'isCurrent' => 'required'
+        ]);
+
+        if( $validate->fails() ){
+            return response()->json([
+                'status'   => false,
+                'message'  => 'Fields Required',
+                'error'    => $validate->errors()
+            ], 422);
+        }
+
+        $pekerjaan = new Pekerjaan;
+        $pekerjaan->id_mahasiswa = $request->id_mahasiswa;
+        $pekerjaan->nama_perusahaan = $request->nama_perusahaan;
+        $pekerjaan->jabatan = $request->jabatan;
+        $pekerjaan->pekerjaan = $request->pekerjaan;
+        $pekerjaan->tanggal_bekerja = $request->tanggal_bekerja;
+        $pekerjaan->tanggal_selesai = $request->tanggal_selesai;
+        $pekerjaan->isCurrent = $request->isCurrent;
+
+        $pekerjaan->save();
+
+        return response()->json([
+            'status'   => true,
+            'message'  => 'Success add pekerjaan',
+            'results'  => $pekerjaan
+        ]);
+    }
+
+
 }
