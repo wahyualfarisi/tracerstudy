@@ -17,6 +17,7 @@ class CreateJadwalPengisiansTable extends Migration
             $table->increments('id_jadwal');
             $table->date('tanggal_dimulai');
             $table->date('tanggal_selesai');
+            $table->year('tahun_kelulusan');
 
             $table->integer('id_user')->nullable()->unsigned();
             $table->foreign('id_user')

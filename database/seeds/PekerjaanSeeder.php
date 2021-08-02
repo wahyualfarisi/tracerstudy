@@ -14,6 +14,7 @@ class PekerjaanSeeder extends Seeder
         DB::table('pekerjaans')->insert([
             [
                 'id_mahasiswa' => 1,
+                'nama_perusahaan' => 'PT. Teknologi Indonesia Sentosa',
                 'pekerjaan' => 'Software Engineer',
                 'jabatan'   => 'Senior',
                 'tanggal_bekerja' => '2020-09-20',
@@ -22,6 +23,7 @@ class PekerjaanSeeder extends Seeder
             ],
             [
                 'id_mahasiswa' => 1,
+                'nama_perusahaan' => 'PT. Ide Dua Sen',
                 'pekerjaan' => 'Programmer',
                 'jabatan'   => 'Senior',
                 'tanggal_bekerja' => '2021-01-01',
@@ -30,6 +32,7 @@ class PekerjaanSeeder extends Seeder
             ],
             [
                 'id_mahasiswa' => 1,
+                'nama_perusahaan' => 'Sekretariat Wakil Presiden',
                 'pekerjaan' => 'Front End Developer',
                 'jabatan'   => 'Senior',
                 'tanggal_bekerja' => '2021-03-30',

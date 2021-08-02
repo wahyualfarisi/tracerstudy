@@ -22,8 +22,9 @@ class CreatePekerjaansTable extends Migration
                   ->on('mahasiswas')
                   ->onUpdate('cascade')
                   ->onDelete('cascade');
+            $table->string('nama_perusahaan', 150);
             $table->string('pekerjaan', 150);
-            $table->string('jabatan', 150);
+            $table->string('jabatan', 150)->nullable();
             $table->date('tanggal_bekerja');
             $table->date('tanggal_selesai')->nullable();
             $table->integer('isCurrent');
