@@ -12,3 +12,10 @@
 
     <button class="btn btn-danger">Mulai Pengisian</button>
 </div>
+
+
+<script>
+    $(function() {
+        MahasiswaController.dashboardMahasiswa();
+    })
+</script>

@@ -102,6 +102,7 @@
 <script src="{{ asset('assets/vendors/datatable/datatables.min.js') }} " type="text/javascript"></script>
 <script src="{{asset('assets/js/jquery-validation/jquery.validate.js')}}"></script>
 <script src="{{asset('assets/js/block-ui/jquery.blockUI.js')}}"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="{{asset('assets/js/JIC.min.js')}}"></script>
 <script src="{{asset('src/app-library.js')}}"></script>
 <script src="{{asset('src/app-controller.js')}}"></script>

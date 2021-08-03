@@ -24,10 +24,45 @@ const DashboardController = (( LIB ) => {
         )
     }
 
+    const loadChart = () => {
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['2018', '2019', '2020'],
+                datasets: [
+                    {
+                        label: 'Total Mahasiswa',
+                        backgroundColor: '#4F909A',
+                        data: [50, 20, 30]
+                    },
+                    {
+                        label: 'Total Sudah Bekerja',
+                        backgroundColor: '#D38A87',
+                        data: [20, 15, 20]
+                    },
+                    {
+                        label: 'Total Belum Bekerja',
+                        backgroundColor: '#A7D48C',
+                        data: [30, 5, 10]
+                    }
+                ]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    }
+
 
     return {
         init: () => {
             loadMahasiswaPending();
+            loadChart();
             if(getUser){
                 $('.nama_lengkap').text(getUser.payload.nama_lengkap)
             }
@@ -766,7 +801,14 @@ const MahasiswaController = ( (LIB, IMG_COMPRESS) => {
             })
         },
         dashboardMahasiswa: () => {
-            
+            if(getUser){
+                $('.nama_lengkap').text(getUser.payload.nama_lengkap)
+            }
+        },
+        datadiri: () => {
+            if(getUser){
+                loadDetailMahasiswa(getUser.payload.id_mahasiswa)
+            }
         },
         listPekerjaan: () => {
             let t_pekerjaan = $('#t_pekerjaan').DataTable({

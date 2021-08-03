@@ -31,3 +31,6 @@ Route::get('/pertanyaan', 'api\Formulir@getPertanyaan');
 Route::get('/pengisian/getListJadwal', 'api\PengisianController@getListJadwal');
 Route::post('/pengisian/createJadwal', 'api\PengisianController@createJadwal');
 Route::post('/pengisian/editJadwal/{id_jadwal}', 'api\PengisianController@editJadwal');
+Route::post('/pengisian/checkJadwalForMahasiswa/{id_mahasiswa}', 'api\PengisianController@checkJadwalForMahasiswa');
+Route::post('/pengisian/startPengisian', 'api\PengisianController@startPengisian');
+Route::get('/pengisian/getFormulirMahasiswa', 'api\PengisianController@getFormulirMahasiswa');

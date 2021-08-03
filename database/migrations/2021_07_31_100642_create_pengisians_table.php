@@ -15,7 +15,6 @@ class CreatePengisiansTable extends Migration
     {
         Schema::create('pengisians', function (Blueprint $table) {
             $table->increments('id_pengisian');
-            
             $table->integer('id_jadwal')->nullable()->unsigned();
             $table->foreign('id_jadwal')
                   ->references('id_jadwal')
@@ -29,6 +28,8 @@ class CreatePengisiansTable extends Migration
                   ->on('mahasiswas')
                   ->onUpdate('cascade')
                   ->onDelete('cascade');
+
+            $table->enum('status', ['progress','finish'])->default('progress');
             $table->timestamps();
         });
     }
