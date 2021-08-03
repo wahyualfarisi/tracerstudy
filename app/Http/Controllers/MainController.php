@@ -21,9 +21,19 @@ class MainController extends Controller
     public function dataMahasiswa(){
         return view('dataMahasiswa');
     }
+    public function dataMahasiswaPending(){
+        return view('dataMahasiswaPending');
+    }
+    public function detailMahasiswa($id_mahasiswa){
+        $data['id'] = $id_mahasiswa;
+        return view('detailMahasiswa', $data);
+    }
 
     public function jadwalPengisian(){
         return view('jadwalPengisian');
+    }
+    public function buatJadwal(){
+        return view('buatJadwal');
     }
 
     public function laporan(){
@@ -39,5 +49,8 @@ class MainController extends Controller
     }
     public function datapekerjaan(){
         return view('mahasiswa/datapekerjaan');
+    }
+    public function addPekerjaan(){
+        return view('mahasiswa/tambahPekerjaan');
     }
 }

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Mahasiswa;
 use App\Pekerjaan;
+use Illuminate\Support\Facades\Response;
 
 class MahasiswaController extends Controller
 {
@@ -37,7 +38,7 @@ class MahasiswaController extends Controller
         
         return response()->json([
             'status'   => true,
-            'message'  => Mahasiswa::with('getPekerjaans')->where('id_mahasiswa', $id_mahasiswa)->first()
+            'results'  => Mahasiswa::with('getPekerjaans')->where('id_mahasiswa', $id_mahasiswa)->first()
         ]);
     }
 
@@ -113,6 +114,8 @@ class MahasiswaController extends Controller
         $mahasiswa->kode_pos = $request->kode_pos;
         $mahasiswa->photo = $filenametostore;
         $mahasiswa->judul_skripsi = $request->judul_skripsi;
+        $mahasiswa->dospem_1 = $request->dospem_1;
+        $mahasiswa->dospem_2 = $request->dospem_2;
         $mahasiswa->status = 'pending';
         
 
@@ -130,9 +133,7 @@ class MahasiswaController extends Controller
             'id_mahasiswa' => 'required',
             'nama_perusahaan' => 'required',
             'pekerjaan' => 'required',
-            'jabatan' => 'required',
             'tanggal_bekerja' => 'required',
-            'tanggal_selesai' => 'required',
             'isCurrent' => 'required'
         ]);
 
@@ -160,6 +161,28 @@ class MahasiswaController extends Controller
             'message'  => 'Success add pekerjaan',
             'results'  => $pekerjaan
         ]);
+    }
+
+
+    public function mahasiswa_foto($filename)
+    {
+        $path = public_path().'/storage/foto/mahasiswa/'.$filename;
+        return Response::download($path);
+    }
+
+    public function mahasiswa_update(Request $request, $id_mahasiswa)
+    {
+        if($request->update_status){
+            $mahasiswa = Mahasiswa::where('id_mahasiswa', $id_mahasiswa)->first();
+            $mahasiswa->status = $request->update_status;
+            $mahasiswa->update();
+
+            return response()->json([
+                'status'   => true,
+                'message'  => 'Berhasil merubah status',
+                'results'  => $mahasiswa
+            ]);
+        }
     }
 
 

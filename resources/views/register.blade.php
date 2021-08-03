@@ -129,6 +129,27 @@
                 >
             </div>
 
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="dospem_1">Dosen Pembimbing 1</label>
+                    <select name="dospem_1" id="prodi" class="form-control" required>
+                        <option value="">Pilih dosen pembimbing 1</option>
+                        <option value="B. Gunawan S, ST., M.Kom ">B. Gunawan S, ST., M.Kom </option>
+                        <option value="Fauziah S.Kom., MMSI">Fauziah S.Kom., MMSI</option>
+                        <option value="Alex S.T M.Kom">Alex S.T M.Kom</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label for="dospem_2">Dosen Pembimbing 2</label>
+                    <select name="dospem_2" id="prodi" class="form-control" required>
+                        <option value="">Pilih dosen pembimbing 2</option>
+                        <option value="B. Gunawan S, ST., M.Kom ">B. Gunawan S, ST., M.Kom </option>
+                        <option value="Fauziah S.Kom., MMSI">Fauziah S.Kom., MMSI</option>
+                        <option value="Alex S.T M.Kom">Alex S.T M.Kom</option>
+                    </select>
+                </div>
+            </div>
+
             <div class="form-group">
                 <label for="tahun_lulus">Tahun Lulus</label>
                 <input 

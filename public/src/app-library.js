@@ -1,6 +1,28 @@
 const AppLibrary = ( () => {
 
     return {
+        getFree: (path, data = {}, loader, success, error, complete) => {
+            $.ajax({
+                url: path,
+                type: 'GET',
+                data: data,
+                headers: {
+                    'Accept': 'application/json',
+                },
+                beforeSend: function () {
+                    loader
+                },
+                success: function (res) {
+                    success(res)
+                },
+                error: function (err) {
+                    error(err.responseJSON)
+                },
+                complete: function () {
+                    complete
+                }
+            })
+        },
         previewImage: ( e, selectorImage ) => {
             // let file = this.files[0]
             var preview = document.querySelector(selectorImage);
@@ -129,6 +151,69 @@ const AppLibrary = ( () => {
                 }
 
             })
+        },
+        dtSetting: (path, param, resError) => {
+			return {
+				url: path,
+				data: param,
+				type: "GET",
+                dataType: "JSON",
+				beforeSend: function (xhr) {
+					xhr.setRequestHeader("Accept", "application/json");
+				},
+				error: function (err) {
+					resError(err);
+				}
+			}
+        },
+        dtSettingSrc: (path, param, callback, resError) => {
+			return {
+				url: path,
+				data: param,
+				type: "GET",
+				dataType: "JSON",
+				beforeSend: function (xhr) {
+					xhr.setRequestHeader("Accept", "application/json");
+
+
+				},
+				dataSrc: function(res){
+                    $('#LoaderTable').html('')
+					return callback(res);
+				},
+				error: function(err){
+					resError(err)
+				}
+			}
+        },
+        dtLanguage: () => {
+			return {
+                "search": "Quick Search:",
+				zeroRecords: function(){
+                    return `
+                        <div class="text-center">
+                            <img class="img-fluid" style="width: 10%;" src="">
+                            <p>No data </p>
+                        </div>`
+				},
+                loadingRecords: `
+                    <div class="loader-wrapper">
+                      <div class="loader-container">
+                        <div class="line-spin-fade-loader loader-blue">
+                          <div></div>
+                          <div></div>
+                          <div></div>
+                          <div></div>
+                          <div></div>
+                          <div></div>
+                          <div></div>
+                          <div></div>
+                        </div>
+                      </div>
+                    </div>
+                `,
+				infoFiltered: ""
+			}
         },
     }
 })()

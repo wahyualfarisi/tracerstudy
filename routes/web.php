@@ -25,12 +25,21 @@ Route::get('/register', function() {
     return view('register');
 });
 
+Route::get('/konfirmasi_sukses', function() {
+    return view('konfirmasi_sukses');
+});
+
 
 Route::get('/app', 'MainController@index');
 Route::get('/dashboard', 'MainController@dashboard');
 Route::get('/data-master', 'MainController@dataMaster');
 Route::get('/data-mahasiswa', 'MainController@dataMahasiswa');
+Route::get('/data-mahasiswa/pending', 'MainController@dataMahasiswaPending');
+Route::get('/detailmhs/{id_mahasiswa}', 'MainController@detailMahasiswa');
+
 Route::get('/jadwal-pengisian', 'MainController@jadwalPengisian');
+Route::get('/buat-jadwal', 'MainController@buatJadwal');
+
 Route::get('/setSession', 'MainController@setSession');
 Route::get('/laporan', 'MainController@laporan');
 
@@ -38,4 +47,6 @@ Route::get('/laporan', 'MainController@laporan');
 Route::get('/formulir', 'MainController@formulir');
 Route::get('/data-diri', 'MainController@datadiri');
 Route::get('/data-pekerjaan', 'MainController@datapekerjaan');
+Route::get('/tambah-pekerjaan', 'MainController@addPekerjaan');
+
 
