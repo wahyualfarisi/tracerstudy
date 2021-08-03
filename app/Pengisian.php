@@ -13,4 +13,21 @@ class Pengisian extends Model
         'id_mahasiswa',
         'status'
     ];
+
+    protected function serializeDate(\DateTimeInterface $date)
+    {
+        return $date->format($this->getDateFormat());
+    }
+
+    public function getPengisianDetails(){
+        return $this->hasMany('App\PengisianDetail','id_pengisian','id_pengisian');
+    }
+
+    public function getJadwal(){
+        return $this->hasOne('App\JadwalPengisian', 'id_jadwal','id_jadwal');
+    }
+
+    public function getMahasiswa(){
+        return $this->hasOne('App\Mahasiswa', 'id_mahasiswa','id_mahasiswa');
+    }
 }

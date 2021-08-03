@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\JadwalPengisian;
 use App\Pengisian;
+use App\Jawaban;
 use App\PengisianDetail;
 use App\Mahasiswa;
 use App\Pertanyaan;
@@ -19,6 +20,30 @@ class PengisianController extends Controller
             'status' => true,
             'message' => 'get list jadwal',
             'results' => JadwalPengisian::with('dibuatOleh')->get()
+        ]);
+    }
+
+    public function getDetailJadwal(Request $request, $id_jadwal){
+       
+        $jadwal = JadwalPengisian::findOrFail($id_jadwal);
+
+        $id_mahasiswa_yang_sudah_mengisi = Pengisian::where('id_jadwal', $jadwal->id_jadwal)
+                                                        ->pluck('id_mahasiswa');
+
+        $get_mahasiswa_yang_belum_mengisi = Mahasiswa::where('tahun_lulus', $jadwal->tahun_kelulusan)
+                                                        ->whereNotIn('id_mahasiswa', $id_mahasiswa_yang_sudah_mengisi)
+                                                        ->get();
+
+        $jadwal_detail = JadwalPengisian::with(['dibuatOleh','getDataPengisian.getMahasiswa'])
+                                            ->where('id_jadwal', $id_jadwal)
+                                            ->get();
+        return response()->json([
+            'status' => true,
+            'message' => 'get detail jadwal',
+            'results' => [
+                'jadwal_detail' => $jadwal_detail,
+                'mahasiswa_yang_belum_mengisi' => $get_mahasiswa_yang_belum_mengisi
+            ]
         ]);
     }
 
@@ -172,8 +197,76 @@ class PengisianController extends Controller
         ]);
     }
 
-    public function getFormulirMahasiswa(Request $request){
-        
+    public function getFormulirMahasiswa(Request $request, $id_mahasiswa){
+        //check jika sudah mendaftar
+        $pengisian = Pengisian::where('id_mahasiswa', $id_mahasiswa)->first();
+
+        if(!$pengisian){
+            return response()->json([
+                'status'   => false,
+                'message'  => 'Anda belum memulai pengisian'
+            ]);
+        }
+
+        $formulir_pengisian = Pengisian::with([
+            'getJadwal',
+            'getPengisianDetails.getAnswer',
+            'getPengisianDetails.getPertanyaan.getJawabans',
+        ])->where('id_mahasiswa', $id_mahasiswa)->first();
+
+        return response()->json([
+            'status'   => true,
+            'message'  => 'Formulir pengisian',
+            'results'  => $formulir_pengisian
+        ]);
+    }
+
+    public function isiFormulir(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'id_pengisian_detail' => 'required',
+            'id_jawaban' => 'required'
+        ]);
+        if($validator->fails()) return response()->json([
+            'status'  => false,
+            'message' => 'Fields Required',
+            'errors'  => $validator->errors()
+        ]);
+
+        $jawaban = Jawaban::findOrFail($request->id_jawaban);
+
+        $isi = PengisianDetail::findOrFail($request->id_pengisian_detail);
+
+        $isi->id_jawaban = $jawaban->id_jawaban;
+        $isi->update();
+
+        return response()->json([
+            'status'   => true,
+            'message'  => 'isi formulir berhasil',
+            'results'  => $isi
+        ]);
+    }
+
+    public function submitFormulir(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'id_pengisian' => 'required'
+        ]);
+        if($validator->fails()) return response()->json([
+            'status'  => false,
+            'message' => 'Fields Required',
+            'errors'  => $validator->errors()
+        ]);
+
+        $pengisian = Pengisian::findOrFail($request->id_pengisian);
+        $pengisian->status = 'finish';
+        $pengisian->update();
+
+        return response()->json([
+            'status'   => true,
+            'message'  => 'Formulir Berhasil di submit',
+            'results'  => $pengisian
+        ]);
     }
 
 }

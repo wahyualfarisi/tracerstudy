@@ -16,7 +16,16 @@ class JadwalPengisian extends Model
         'id_user'
     ];
 
+    protected function serializeDate(\DateTimeInterface $date)
+    {
+        return $date->format($this->getDateFormat());
+    }
+    
     public function dibuatOleh() {
         return $this->hasOne('App\User', 'id_user','id_user');
+    }
+
+    public function getDataPengisian(){
+        return $this->hasMany('App\Pengisian', 'id_jadwal', 'id_jadwal');
     }
 }

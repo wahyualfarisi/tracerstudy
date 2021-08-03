@@ -12,6 +12,10 @@ class Pertanyaan extends Model
         'pertanyaan'
     ];
 
+    protected function serializeDate(\DateTimeInterface $date)
+    {
+        return $date->format($this->getDateFormat());
+    }
 
     public function getJawabans(){
         return $this->hasMany('App\Jawaban', 'id_pertanyaan', 'id_pertanyaan');
