@@ -67,19 +67,20 @@
   .main {
     margin-left: 250px; /* Same as the width of the sidenav */
     font-size: 1rem; /* Increased text to enable scrolling */
-    padding: 1rem 1rem;
+    padding: 4rem 2rem;
+
   }
 
   .button-signout {
     position: absolute;
     bottom: 10px;
-    left: 10px;
+    right: 10px;
   }
 
   .button-signout button {
     border: none;
     outline: none;
-    padding: 1rem;
+    padding: .4rem 1rem;
     border-radius: 1rem;
   }
 
