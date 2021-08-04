@@ -203,7 +203,7 @@ const JadwalPengisianController = ( (LIB) => {
                     {
                         data: null,
                         render: (data, type, row) => {
-                            return '-'
+                            return `<a href="#/jadwal-pengisian/${row.id_jadwal}"> Lihat </a>`
                         }
                     },
                 ],
@@ -552,6 +552,32 @@ const MahasiswaController = ( (LIB, IMG_COMPRESS) => {
             )
 
             
+        });
+
+        //Submit Formulir
+        $('#btn_submit_formulir').on('click', function() {
+            let c = confirm('Apakah anda yakin ingin submit formulir ini ?');
+            if(!c) return false;
+            let newform = new FormData();
+            let id_pengisian = $(this).data('id_pengisian');
+            newform.append('id_pengisian', id_pengisian);
+
+            LIB.postBlobData(
+                `/api/pengisian/submitFormulir`,
+                newform,
+                'Loading',
+                res => {
+                    console.log(res);
+                    if(res.status){
+                        $.notify("Formulir berhasil di submit", "success");
+                        location.hash = '#/formulir';
+                    }
+                },
+                err => {
+                    console.log( err );
+                    $.notify("Silahkan coba lagi", "error");
+                }
+            )
         })
         
     }
@@ -639,6 +665,7 @@ const MahasiswaController = ( (LIB, IMG_COMPRESS) => {
             {},
             null,
             res => {
+                console.log(res);
                 if(res.status){
                     displayJadwal(res.results, id_mahasiswa);
                 }
@@ -654,10 +681,19 @@ const MahasiswaController = ( (LIB, IMG_COMPRESS) => {
         
         if(jadwal){
 
-            let link;
+            let link = '';
 
             if(check_pengisian){
-                link = `<a href="#/pengisian-formulir" class="btn btn-danger">Lanjutkan Pengisian</a>`
+                if(check_pengisian.status === 'progress'){
+                    link = `<a href="#/pengisian-formulir" class="btn btn-danger">Lanjutkan Pengisian</a>`
+                }else{
+                    link = `
+                    <div class="alert alert-success" role="alert">
+                        <h6>Terimakasih Anda Sudah mengisi formulir tracer study</h6> 
+                    </div>
+                    `
+                }
+
             }else{
                 link = `<button 
                         class="btn btn-danger" 
@@ -703,8 +739,17 @@ const MahasiswaController = ( (LIB, IMG_COMPRESS) => {
 
     const displayFormulirPengisian = (data) => {
         console.log(data);
-        const { get_pengisian_details } = data;
-        
+        const { get_jadwal, get_pengisian_details } = data;
+        //set attr id pengisian pada submit formulir
+        $('#btn_submit_formulir').attr('data-id_pengisian', data.id_pengisian);
+        $('.tanggal_dimulai').text(get_jadwal.tanggal_dimulai)
+        $('.tanggal_selesai').text(get_jadwal.tanggal_selesai);
+        $('.tahun_kelulusan').text(get_jadwal.tahun_kelulusan);
+        if(data.status === 'finish'){
+            $('#btn_submit_formulir').hide();
+        }else{
+            $('#btn_submit_formulir').show();
+        }
         let output = '';
         get_pengisian_details.forEach(item => {
 

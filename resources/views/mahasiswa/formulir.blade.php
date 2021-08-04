@@ -9,8 +9,6 @@
         <h6>Jadwal Pengisian Formulir Tracer Study</h6>
       </div>
     <p>Tanggal 28 Agustus 2021 - 28 September 2021 untuk tahun kelulusan 2021</p>
-
-    <button class="btn btn-danger">Mulai Pengisian</button>
 </div>
 
 

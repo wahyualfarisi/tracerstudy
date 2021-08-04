@@ -18,7 +18,7 @@
             </tr>
         </table>
         <div class="formulir_action">
-            <button class="btn btn-primary col-md-12">Submit Formulir</button>
+            <button class="btn btn-primary col-md-12" id="btn_submit_formulir" style="display: none">Submit Formulir</button>
         </div>
     </div>
     <div class="col-md-8">

@@ -32,6 +32,10 @@ class MainController extends Controller
     public function jadwalPengisian(){
         return view('jadwalPengisian');
     }
+    public function detailJadwal($id_jadwal){
+        return view('detailJadwal');
+    }
+
     public function buatJadwal(){
         return view('buatJadwal');
     }
