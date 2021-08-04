@@ -33,7 +33,7 @@ Route::get('/pengisian/detailJadwal/{id_jadwal}', 'api\PengisianController@getDe
 
 Route::post('/pengisian/createJadwal', 'api\PengisianController@createJadwal');
 Route::post('/pengisian/editJadwal/{id_jadwal}', 'api\PengisianController@editJadwal');
-Route::post('/pengisian/checkJadwalForMahasiswa/{id_mahasiswa}', 'api\PengisianController@checkJadwalForMahasiswa');
+Route::get('/pengisian/checkJadwalForMahasiswa/{id_mahasiswa}', 'api\PengisianController@checkJadwalForMahasiswa');
 Route::post('/pengisian/startPengisian', 'api\PengisianController@startPengisian');
 Route::get('/pengisian/getFormulirMahasiswa/{id_mahasiswa}', 'api\PengisianController@getFormulirMahasiswa');
 Route::post('/pengisian/isi/formulir', 'api\PengisianController@isiFormulir');

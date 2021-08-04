@@ -7,19 +7,29 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;1,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }} " >
+  <link rel="stylesheet" href="{{ asset('assets/css/font-awesome.min.css') }}">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/datatable/datatables.min.css') }} ">
   <style>
-  body {
+
+  * {
     font-family: "Lato", sans-serif;
+    margin: 0;
+    padding: 0;
+    /* font-size: 62.5%; */
+  }
+  body {
+   
+  }
+
+  ul {
     margin: 0;
     padding: 0;
   }
 
   .sidenav {
     height: 100%;
-    width: 190px;
+    width: 250px;
     position: fixed;
     z-index: 1;
     top: 0;
@@ -55,8 +65,8 @@
   }
 
   .main {
-    margin-left: 190px; /* Same as the width of the sidenav */
-    font-size: 28px; /* Increased text to enable scrolling */
+    margin-left: 250px; /* Same as the width of the sidenav */
+    font-size: 1rem; /* Increased text to enable scrolling */
     padding: 1rem 1rem;
   }
 
@@ -97,11 +107,11 @@
 
 <div class="main"></div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="{{asset('assets/js/jquery.min.js')}}" ></script>
 <script src="{{ asset('assets/vendors/datatable/datatables.min.js') }} " type="text/javascript"></script>
 <script src="{{asset('assets/js/jquery-validation/jquery.validate.js')}}"></script>
 <script src="{{asset('assets/js/block-ui/jquery.blockUI.js')}}"></script>
+<script src="{{asset('assets/js/notify.min.js')}}"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="{{asset('assets/js/JIC.min.js')}}"></script>
 <script src="{{asset('src/app-library.js')}}"></script>

@@ -226,7 +226,7 @@ const MasterPertanyaan = ( (LIB) => {
                 processing: false,
                 language: LIB.dtLanguage(),
                 dom: '<Bf<t>ip>',
-                keys: { columns: [0, 1] },
+                keys: { columns: [0] },
                 pageLength: 50,
                 scrollY: 500,
                 scrollX: true,
@@ -246,7 +246,7 @@ const MasterPertanyaan = ( (LIB) => {
                                     extend: 'excelHtml5',
                                     text: 'Excel',
                                     exportOptions: {
-                                        columns: [0,1]
+                                        columns: [0]
                                     },
                                     filename: 'DATA_USER',
                                     title: 'Data User'
@@ -255,7 +255,7 @@ const MasterPertanyaan = ( (LIB) => {
                                     extend: 'csvHtml5',
                                     text: 'CSV',
                                     exportOptions: {
-                                        columns: [0,1]
+                                        columns: [0]
                                     },
                                     filename: 'DATA_USER',
                                     title: 'Data User'
@@ -281,28 +281,22 @@ const MasterPertanyaan = ( (LIB) => {
                     {
                         data: null,
                         render: (data, type, row) => {
-                            return row.pertanyaan
-                        }
-                    },
-                    {
-                        data: null,
-                        render: (data, type, row) => {
-                           let output = '';
-                           if(row.get_jawabans){
-                               if(row.get_jawabans.length > 0){
-                                   row.get_jawabans.forEach(item => {
-                                    output += `
-                                        <div style="padding: 1rem;">
-                                            <ul>
-                                                <li>${item.jawaban}</li>
-                                            </ul>
-                                        </div>
-                                    `;
-                                   })
-                               }
-                           }
+                            let output = `<div style="margin-bottom: 5px;">${row.pertanyaan}</div>`;
+                            if(row.get_jawabans){
+                                if(row.get_jawabans.length > 0){
+                                    row.get_jawabans.forEach(item => {
+                                        output += `
+                                            <div>
+                                                <ul>
+                                                    <li> - ${item.jawaban}</li>
+                                                </ul>
+                                            </div>
+                                        `;
+                                    })
+                                }
+                            }
 
-                           return output;
+                            return output;
                         }
                     },
                     {
@@ -312,7 +306,7 @@ const MasterPertanyaan = ( (LIB) => {
                         }
                     },
                 ],
-                order: [[1, "asc"]]
+                order: [[0, "asc"]]
             })
         }
     }
@@ -502,6 +496,63 @@ const MahasiswaController = ( (LIB, IMG_COMPRESS) => {
             }
         });
 
+        //button click mulai pengisian
+        $('.info_jadwal').on('click', '#btn_mulai_pengisian', function() {
+            let c = confirm('Mulai Pengisian Formulir ? ');
+            if(!c) return false;
+
+            let id_jadwal = $(this).data('id_jadwal');
+            let id_mahasiswa = $(this).data('id_mahasiswa');
+            let newForm = new FormData();
+            newForm.append('id_jadwal', id_jadwal);
+            newForm.append('id_mahasiswa', id_mahasiswa);
+
+            LIB.postBlobData(
+                `/api/pengisian/startPengisian`,
+                newForm,
+                'Loading',
+                res => {
+                    if(res.status){
+                        location.hash = '#/pengisian-formulir'
+                    }else{  
+                        alert(res.message)
+                    }
+                },
+                err => {
+                    console.log(err)
+                }
+            )
+
+        })
+
+        //Pilih jawaban
+        $('.pengisianFormulir').on('click', '.pilih-jawaban', function() {
+            let id_jawaban = $(this).data('id_jawaban');
+            let id_pengisian_detail = $(this).data('id_pengisian_detail');
+
+            let newForm = new FormData();
+            newForm.append('id_jawaban', id_jawaban);
+            newForm.append('id_pengisian_detail', id_pengisian_detail);
+
+            
+            LIB.postBlobData(
+                `/api/pengisian/isi/formulir`,
+                newForm,
+                'Loading',
+                res => {
+                    if(res.status){
+                        $.notify("Berhasil menyimpan jawaban", "success");
+                    }else{
+                        $.notify("Terjadi Masalah", "success");
+                    }
+                },
+                err => {
+                    $.notify("Terjadi Masalah", "error");
+                }
+            )
+
+            
+        })
         
     }
 
@@ -580,6 +631,123 @@ const MahasiswaController = ( (LIB, IMG_COMPRESS) => {
                 )
             }
         });
+    }
+
+    const loadJadwalPengisian = (id_mahasiswa) => {
+        LIB.getFree(
+            `/api/pengisian/checkJadwalForMahasiswa/${id_mahasiswa}`,
+            {},
+            null,
+            res => {
+                if(res.status){
+                    displayJadwal(res.results, id_mahasiswa);
+                }
+            },
+            err => {
+                console.log(err);
+            }
+        )
+    }
+
+    const displayJadwal = ( data, id_mahasiswa ) => {
+        const { jadwal, check_pengisian} = data;
+        
+        if(jadwal){
+
+            let link;
+
+            if(check_pengisian){
+                link = `<a href="#/pengisian-formulir" class="btn btn-danger">Lanjutkan Pengisian</a>`
+            }else{
+                link = `<button 
+                        class="btn btn-danger" 
+                        id="btn_mulai_pengisian" 
+                        data-id_jadwal="${jadwal.id_jadwal}"
+                        data-id_mahasiswa="${id_mahasiswa}"
+                        >Mulai Pengisian
+                        </button>`
+            }
+            $('.info_jadwal').html(`
+                <div class="alert alert-success" role="alert">
+                    <h6>Jadwal Pengisian Formulir Tracer Study</h6>
+                </div>
+                <p>Tanggal ${jadwal.tanggal_dimulai} - ${jadwal.tanggal_selesai} untuk tahun kelulusan ${jadwal.tahun_kelulusan}</p>
+            
+                ${link}
+            `)
+        }else{
+            $('.info_jadwal').html(`
+                <div class="alert alert-danger" role="alert">
+                    <h6>Belum ada Jadwal Pengisian Formulir Tracer Study</h6>
+                </div>
+            `)
+        }
+     }
+
+    const loadFormulir = () => {
+        LIB.getFree(
+            `/api/pengisian/getFormulirMahasiswa/${getUser.payload.id_mahasiswa}`,
+            {},
+            null,
+            res => {
+                if(res.status){
+                    
+                    displayFormulirPengisian(res.results);
+                }
+            },
+            err => {
+                console.log(err);
+            }
+        )
+    }
+
+    const displayFormulirPengisian = (data) => {
+        console.log(data);
+        const { get_pengisian_details } = data;
+        
+        let output = '';
+        get_pengisian_details.forEach(item => {
+
+         
+            let jawaban = '';
+            if( item.get_pertanyaan.get_jawabans.length > 0){
+                item.get_pertanyaan.get_jawabans.forEach(jwb => {
+
+                    let checked;
+                    if(item.id_jawaban === jwb.id_jawaban){
+                        checked = 'checked'
+                    }
+                    
+                    jawaban += `
+                        <li class="Jawabans_item">
+                            <div class="form-check">
+                                <input 
+                                    class="form-check-input pilih-jawaban" 
+                                    type="radio"
+                                    value="${jwb.id_jawaban}"
+                                    id="${jwb.id_jawaban}" 
+                                    data-id_jawaban="${jwb.id_jawaban}"
+                                    data-id_pengisian_detail="${item.id_pengisian_detail}"
+                                    name="pengisian_detail_${jwb.id_pertanyaan}"
+                                    ${checked}>
+                                <p>${jwb.jawaban}</p>
+                            </div>
+                        </li>
+                    `;
+                })
+            }
+
+            output += `
+                <div class="PengisanFormulir_item">
+                    <p>${item.get_pertanyaan.pertanyaan}</p>
+                    <ul class="Jawabans">
+                        ${jawaban}
+                    </ul>
+                </div>
+            `
+        })
+
+        $('.pengisianFormulir').html(output);
     }
 
     return {
@@ -803,6 +971,14 @@ const MahasiswaController = ( (LIB, IMG_COMPRESS) => {
         dashboardMahasiswa: () => {
             if(getUser){
                 $('.nama_lengkap').text(getUser.payload.nama_lengkap)
+                loadJadwalPengisian(getUser.payload.id_mahasiswa);
+                eventListener();
+            }
+        },
+        pengisian: () => {
+            if(getUser){
+                loadFormulir()
+                eventListener()
             }
         },
         datadiri: () => {

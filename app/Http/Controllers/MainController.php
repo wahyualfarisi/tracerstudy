@@ -53,4 +53,9 @@ class MainController extends Controller
     public function addPekerjaan(){
         return view('mahasiswa/tambahPekerjaan');
     }
+    public function pengisianFormulir(){
+        return view('mahasiswa/pengisianFormulir');
+    }
+
+    
 }

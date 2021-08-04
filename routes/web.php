@@ -48,5 +48,6 @@ Route::get('/formulir', 'MainController@formulir');
 Route::get('/data-diri', 'MainController@datadiri');
 Route::get('/data-pekerjaan', 'MainController@datapekerjaan');
 Route::get('/tambah-pekerjaan', 'MainController@addPekerjaan');
+Route::get('/pengisian-formulir', 'MainController@pengisianFormulir');
 
 

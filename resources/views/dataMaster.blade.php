@@ -13,7 +13,6 @@
                               <thead>
                                   <tr>
                                       <th>Pertanyaan</th>
-                                      <th>Jawaban</th>
                                       <th>Options</th>
                                   </tr>
                               </thead>
@@ -23,7 +22,6 @@
                               <tfoot>
                                   <tr>
                                     <th>Pertanyaan</th>
-                                    <th>Jawaban</th>
                                     <th>Options</th>
                                   </tr>
                               </tfoot>
