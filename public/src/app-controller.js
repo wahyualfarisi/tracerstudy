@@ -116,6 +116,70 @@ const JadwalPengisianController = ( (LIB) => {
         })
     }
 
+    const loadDetailJadwal = (id) => {
+        LIB.getFree(
+            `/api/pengisian/detailJadwal/${id}`,
+            {},
+            null,
+            res => {
+                console.log(res);
+                if(res.status){
+                    displayDetailJadwal(res.results);
+                }
+            },
+            err => {
+                console.log(err);
+            }
+        )
+    }
+
+    const displayDetailJadwal = (data) => {
+        console.log(data)
+        const { jadwal_detail, mahasiswa_yang_belum_mengisi } = data;
+
+        const { get_data_pengisian } = jadwal_detail;
+
+        if(get_data_pengisian){
+            let output = '';
+            if(get_data_pengisian.length > 0){
+                get_data_pengisian.forEach(item => {
+                    let status = '';
+                    if(item.status === 'progress'){
+                        status = '<p style="color: orange;">Masih dalam pengisian</p>'
+                    }else if(item.status === 'finish'){
+                        status = '<p style="color: green;">Selesai</p>'
+                    }
+                    output += `
+                        <tr>
+                            <td>${item.get_mahasiswa.nama_lengkap}</td>
+                            <td>${item.get_mahasiswa.nim}</td>
+                            <td>${item.get_mahasiswa.kode_prodi}</td>
+                            <td>${item.get_mahasiswa.email}</td>
+                            <td>${status}</td>
+                        </tr>
+                    `;
+                })
+            }
+            $('#pengisian_formulir').html(output)
+        }
+
+        if(mahasiswa_yang_belum_mengisi){
+            let output = '';
+            if(mahasiswa_yang_belum_mengisi.length > 0){
+                mahasiswa_yang_belum_mengisi.forEach(item => {
+                    output += `
+                    <tr>
+                        <td>${item.nama_lengkap}</td>
+                        <td>${item.nim}</td>
+                        <td>${item.kode_prodi}</td>
+                        <td>${item.email}</td>
+                    </tr>
+                    `;
+                })
+            }
+            $('#t_mahasiswa').html(output);
+        }
+    }
 
     return {
         data: () => {
@@ -212,6 +276,9 @@ const JadwalPengisianController = ( (LIB) => {
         },
         add: () => {
             eventListener();
+        },
+        detail: (id) => {
+            loadDetailJadwal(id);
         }
     }
 })(AppLibrary)

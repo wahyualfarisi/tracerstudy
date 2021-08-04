@@ -36,7 +36,7 @@ class PengisianController extends Controller
 
         $jadwal_detail = JadwalPengisian::with(['dibuatOleh','getDataPengisian.getMahasiswa'])
                                             ->where('id_jadwal', $id_jadwal)
-                                            ->get();
+                                            ->first();
         return response()->json([
             'status' => true,
             'message' => 'get detail jadwal',

@@ -33,7 +33,8 @@ class MainController extends Controller
         return view('jadwalPengisian');
     }
     public function detailJadwal($id_jadwal){
-        return view('detailJadwal');
+        $data['id'] = $id_jadwal;
+        return view('detailJadwal', $data);
     }
 
     public function buatJadwal(){
