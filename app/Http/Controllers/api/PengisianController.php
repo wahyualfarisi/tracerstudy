@@ -209,6 +209,7 @@ class PengisianController extends Controller
         }
 
         $formulir_pengisian = Pengisian::with([
+            'getMahasiswa',
             'getJadwal',
             'getPengisianDetails.getAnswer',
             'getPengisianDetails.getPertanyaan.getJawabans',

@@ -1,6 +1,6 @@
 <h4>Detail Jadwal</h4>
 
-<div>
+<div style="margin-top: 3rem">
     <h6>Pengisian Formulir</h6>
     <table class="table">
         <thead>
@@ -15,8 +15,8 @@
         <tbody id="pengisian_formulir"></tbody>
     </table>
 </div>
-<div>
-    <h6>Mahasiswa yang belum melakukan pengisian</h6>
+<div style="margin-top: 3rem">
+    <h6><span class="total_belum_mengisi"></span> Mahasiswa yang belum mengisi formulir</h6>
     <table class="table">
         <thead>
             <tr>

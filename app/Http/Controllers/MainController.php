@@ -36,6 +36,10 @@ class MainController extends Controller
         $data['id'] = $id_jadwal;
         return view('detailJadwal', $data);
     }
+    public function lihatFormulirMahasiswa($id_mahasiswa){
+        $data['id'] = $id_mahasiswa;
+        return view('lihatFormulir', $data);
+    }
 
     public function buatJadwal(){
         return view('buatJadwal');

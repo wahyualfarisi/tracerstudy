@@ -1,7 +1,7 @@
 <h4>Jadwal Pengisian Formulir</h4>
 
 <div class="button-table mb-5">
-    <a href="#/buat-jadwal" class="btn btn-danger">Buat Jadwal</a>
+    <a href="#/buat-jadwal" class="btn btn-primary">Buat Jadwal</a>
 </div>
 <div class="section section-data-tables">
     <div class="row">

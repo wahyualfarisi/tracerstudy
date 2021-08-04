@@ -174,7 +174,7 @@
             <div class="form-group">
                 <img src="" width="200px;" class="preview_image img-responsive" >
             </div>
-            <button type="submit" class="btn btn-danger">Registrasi</button>
+            <button type="submit" class="btn btn-primary">Registrasi</button>
         </form>
 
     </div>

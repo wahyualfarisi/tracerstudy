@@ -24,27 +24,37 @@ const DashboardController = (( LIB ) => {
         )
     }
 
-    const loadChart = () => {
+    const loadChart = ( data ) => {
+        const { total_mahasiswa, sudah_bekerja, belum_bekerja } = data;
+
+        const year = ['2019','2020','2021'];
+
+        const data_mahasiswa = Object.values(total_mahasiswa).map(item => item);
+        const data_sudah_bekerja = Object.values(sudah_bekerja).map(item => item);
+        const data_belum_bekerja = Object.values(belum_bekerja).map(item => item);
+     
+       
+       
         var ctx = document.getElementById('myChart').getContext('2d');
         var myChart = new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: ['2018', '2019', '2020'],
+                labels: year,
                 datasets: [
                     {
                         label: 'Total Mahasiswa',
                         backgroundColor: '#4F909A',
-                        data: [50, 20, 30]
+                        data: data_mahasiswa
                     },
                     {
                         label: 'Total Sudah Bekerja',
                         backgroundColor: '#D38A87',
-                        data: [20, 15, 20]
+                        data: data_sudah_bekerja
                     },
                     {
                         label: 'Total Belum Bekerja',
                         backgroundColor: '#A7D48C',
-                        data: [30, 5, 10]
+                        data: data_belum_bekerja
                     }
                 ]
             },
@@ -58,11 +68,26 @@ const DashboardController = (( LIB ) => {
         });
     }
 
+    const loadDataDashboard = () => {
+        LIB.getFree(
+            `/api/dashboard/full`,
+            {},
+            null,
+            res => {
+                if(res.status){
+                    loadChart(res.results); 
+                }
+            },
+            err => {
+                console.log(err);
+            }
+        )
+    }
 
     return {
         init: () => {
             loadMahasiswaPending();
-            loadChart();
+            loadDataDashboard();
             if(getUser){
                 $('.nama_lengkap').text(getUser.payload.nama_lengkap)
             }
@@ -147,7 +172,10 @@ const JadwalPengisianController = ( (LIB) => {
                     if(item.status === 'progress'){
                         status = '<p style="color: orange;">Masih dalam pengisian</p>'
                     }else if(item.status === 'finish'){
-                        status = '<p style="color: green;">Selesai</p>'
+                        status = `
+                            <p style="color: green;">Selesai</p>
+                            <a href="#/jadwal-pengisian/lihat_formulir/${item.get_mahasiswa.id_mahasiswa}"> Lihat formulir </a>
+                        `
                     }
                     output += `
                         <tr>
@@ -177,6 +205,8 @@ const JadwalPengisianController = ( (LIB) => {
                     `;
                 })
             }
+            
+            $('.total_belum_mengisi').html(mahasiswa_yang_belum_mengisi.length)
             $('#t_mahasiswa').html(output);
         }
     }
@@ -354,7 +384,7 @@ const MasterPertanyaan = ( (LIB) => {
                                     row.get_jawabans.forEach(item => {
                                         output += `
                                             <div>
-                                                <ul>
+                                                <ul style="list-style: none;">
                                                     <li> - ${item.jawaban}</li>
                                                 </ul>
                                             </div>
@@ -787,14 +817,13 @@ const MahasiswaController = ( (LIB, IMG_COMPRESS) => {
         }
      }
 
-    const loadFormulir = () => {
+    const loadFormulir = (id_mahasiswa) => {
         LIB.getFree(
-            `/api/pengisian/getFormulirMahasiswa/${getUser.payload.id_mahasiswa}`,
+            `/api/pengisian/getFormulirMahasiswa/${id_mahasiswa}`,
             {},
             null,
             res => {
                 if(res.status){
-                    
                     displayFormulirPengisian(res.results);
                 }
             },
@@ -1087,10 +1116,13 @@ const MahasiswaController = ( (LIB, IMG_COMPRESS) => {
                 eventListener();
             }
         },
-        pengisian: () => {
-            if(getUser){
-                loadFormulir()
+        pengisian: ( id = null) => {
+            
+            if(getUser.level === 'mahasiswa'){
+                loadFormulir(getUser.payload.id_mahasiswa)
                 eventListener()
+            }else{
+                loadFormulir(id)
             }
         },
         datadiri: () => {

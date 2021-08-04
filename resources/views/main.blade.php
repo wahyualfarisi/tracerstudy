@@ -34,7 +34,7 @@
     z-index: 1;
     top: 0;
     left: 0;
-    background-color: #bc1e2d;
+    background-color: var(--color-primary);
     opacity: .9;
     overflow-x: hidden;
     padding-top: 20px;

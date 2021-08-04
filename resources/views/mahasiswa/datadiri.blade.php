@@ -35,12 +35,12 @@
                 </div>
                 <div class="col-md-12">
                     <div class="form-group">
-                        <label for="email">Email</label>
+                        <label for="judul_skripsi">Judul Skripsi</label>
                         <input 
                             type="text" 
                             class="form-control" 
-                            id="email"
-                            name="email"
+                            id="judul_skripsi"
+                            name="judul_skripsi"
                             required
                         >
                     </div>
@@ -89,12 +89,12 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="judul_skripsi">Judul Skripsi</label>
+                        <label for="email">Email</label>
                         <input 
                             type="text" 
                             class="form-control" 
-                            id="judul_skripsi"
-                            name="judul_skripsi"
+                            id="email"
+                            name="email"
                             required
                         >
                     </div>

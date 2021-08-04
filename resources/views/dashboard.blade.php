@@ -6,7 +6,7 @@
 
 <div class="konfirmasi_mahasiswa"></div>
 <div>
-<canvas id="myChart"></canvas>
+    <canvas id="myChart"></canvas>
 </div>
 
 

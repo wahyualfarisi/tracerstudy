@@ -60,7 +60,7 @@
                     <option value="SBK">Seksi Bidang Kemahasiswaan</option>
                 </select>
             </div>
-            <button type="submit" class="btn btn-danger">Masuk</button>
+            <button type="submit" class="btn btn-primary">Masuk</button>
         </form>
 
     </div>

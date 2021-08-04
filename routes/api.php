@@ -38,3 +38,6 @@ Route::post('/pengisian/startPengisian', 'api\PengisianController@startPengisian
 Route::get('/pengisian/getFormulirMahasiswa/{id_mahasiswa}', 'api\PengisianController@getFormulirMahasiswa');
 Route::post('/pengisian/isi/formulir', 'api\PengisianController@isiFormulir');
 Route::post('/pengisian/submitFormulir', 'api\PengisianController@submitFormulir');
+
+//Dashboard
+Route::get('/dashboard/full', 'api\DashboardController@full');

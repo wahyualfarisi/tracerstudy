@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Faker\Factory as Faker;
 
 class PekerjaanSeeder extends Seeder
 {
@@ -11,34 +12,20 @@ class PekerjaanSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('pekerjaans')->insert([
-            [
-                'id_mahasiswa' => 1,
-                'nama_perusahaan' => 'PT. Teknologi Indonesia Sentosa',
-                'pekerjaan' => 'Software Engineer',
-                'jabatan'   => 'Senior',
-                'tanggal_bekerja' => '2020-09-20',
-                'tanggal_selesai' => '2020-12-25',
-                'isCurrent' => 0
-            ],
-            [
-                'id_mahasiswa' => 1,
-                'nama_perusahaan' => 'PT. Ide Dua Sen',
-                'pekerjaan' => 'Programmer',
-                'jabatan'   => 'Senior',
-                'tanggal_bekerja' => '2021-01-01',
-                'tanggal_selesai' => '2021-03-30',
-                'isCurrent' => 0
-            ],
-            [
-                'id_mahasiswa' => 1,
-                'nama_perusahaan' => 'Sekretariat Wakil Presiden',
-                'pekerjaan' => 'Front End Developer',
-                'jabatan'   => 'Senior',
-                'tanggal_bekerja' => '2021-03-30',
-                'tanggal_selesai' => null,
-                'isCurrent' => 1
-            ]
-        ]);
+        $faker = Faker::create('id_ID');
+
+        for($i = 0; $i<= 100; $i++){
+            DB::table('pekerjaans')->insert([
+                [
+                    'id_mahasiswa' => $faker->numberBetWeen(1, 90),
+                    'nama_perusahaan' => $faker->company,
+                    'pekerjaan' => $faker->jobTitle,
+                    'jabatan'   => 'Senior',
+                    'tanggal_bekerja' => '2020-09-20',
+                    'tanggal_selesai' => '2020-12-25',
+                    'isCurrent' => 0
+                ]
+            ]);
+        }
     }
 }

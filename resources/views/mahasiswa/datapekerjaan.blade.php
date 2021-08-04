@@ -2,7 +2,7 @@
 
 
 <div class="button-table mb-5">
-    <a href="#/tambah-pekerjaan" class="btn btn-danger">Tambah Pekerjaan</a>
+    <a href="#/tambah-pekerjaan" class="btn btn-primary">Tambah Pekerjaan</a>
 </div>
 <div class="section section-data-tables">
     <div class="row">

@@ -18,9 +18,9 @@ class CreateMahasiswasTable extends Migration
             $table->string('nim')->unique();
             $table->year('tahun_lulus');
             $table->enum('kode_prodi', ['','SI','SK']);
-            $table->string('nama_lengkap', 30);
+            $table->string('nama_lengkap', 130);
             $table->string('no_telepon', 30);
-            $table->string('email', 30)->unique();
+            $table->string('email', 130)->unique();
             $table->text('password', 30);
             $table->text('alamat');
             $table->string('kode_pos', 10);
@@ -31,7 +31,6 @@ class CreateMahasiswasTable extends Migration
             $table->text('dospem_2')->nullable();
             $table->string('ipk')->nullable();
             $table->enum('status', ['','pending','verified'])->default('');
-
             $table->timestamps();
         });
     }
