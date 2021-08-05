@@ -1,14 +1,15 @@
 const LaporanControllor = ( (LIB) => {
 
-    const loadLaporan = () => {
-
+    const loadLaporan = ( year ) => {
+        
         LIB.getFree(
             `/api/laporan`,
             {
-                tahun_kelulusan: 2021
+                tahun_kelulusan: year
             },
             null,
             res => {
+                console.log(res);
                displayLaporan(res.results)
             },
             err => {
@@ -20,22 +21,24 @@ const LaporanControllor = ( (LIB) => {
     const displayLaporan = (data) => {
         console.log( data );
         const { isian, pertanyaan } = data;
-        const pengisian_details = isian.getpengisian_details;
+        const pengisian_details = isian ? isian.getpengisian_details : null;
 
-        console.log( pengisian_details );
-
+        
         //display
         let output_pertanyaan = '';
         pertanyaan.forEach(item => {
             let list_jawaban = '';
 
             item.get_jawabans.forEach(item => {
-                let count = pengisian_details.filter(isian_mhs => isian_mhs.id_jawaban === item.id_jawaban ).length;
-
+                
+                let count = 0;
+                if(pengisian_details){
+                    count = pengisian_details.filter(isian_mhs => isian_mhs.id_jawaban === item.id_jawaban ).length;
+                }
     
                 list_jawaban += `
                     <li class="laporan_jawaban_item">
-                        <span>${count} Jawaban</span>
+                        <span>${count} koresponden</span>
                         <p> ${item.jawaban} </p>
                     </li>
                 `;
@@ -76,8 +79,9 @@ const LaporanControllor = ( (LIB) => {
     }
 
     return {
-        data: () => {
-            loadLaporan()
+        data: (year) => {
+            console.log(year)
+            loadLaporan(year)
         },
         form: () => {
             submitLaporan()
@@ -402,6 +406,62 @@ const JadwalPengisianController = ( (LIB) => {
 
 
 const MasterPertanyaan = ( (LIB) => {
+    let countRow = 0;
+
+    const eventListener = () => {
+
+        $('#btn_tambah').on('click', () => addMoreInput() );
+
+        $('#form_pertanyaan').on('submit', function(e) {
+            e.preventDefault();
+        }).validate({
+            errorPlacement: function (error, element) {
+                error.css('color','red').css('fontSize', '10px').addClass('right')
+
+                var placement = $(element).data("error");
+                if (placement) {
+                    $(placement).append(error);
+                } else {
+                    error.insertAfter(element);
+                }
+            },
+            submitHandler: function(form){
+                LIB.postRes(
+                    `/api/pertanyaan/create`,
+                    form,
+                    'Loading',
+                    res => {
+                        if(res.status){
+                            location.hash = '#/data-master';
+                            $.notify("Berhasil membuat data", "success");
+                        }
+                    },
+                    err => {
+                        console.log(err)
+                        $.notify("Silahkan coba lagi", "error");
+                    }
+                )
+
+            }
+        })
+
+        $('.jawaban_inputs').on('click', '.link_small_end', function() {
+            let id = $(this).data('count');
+            $(`#input-${id}`).remove();
+        })
+
+    }
+
+    const addMoreInput = () => {
+        countRow++;
+        let inputElement = `
+            <div class="form-group" id="input-${countRow}">
+                <input type="text" class="form-control" name="jawaban[${countRow}]" placeholder="Tulis Jawaban" required />
+                <a class="link_small_end" data-count="${countRow}" href="javascript:void(0)">Delete</a>
+            </div>
+        `;
+        $('.jawaban_inputs').append(inputElement)
+    }
 
     return {
         data: () => {
@@ -482,16 +542,13 @@ const MasterPertanyaan = ( (LIB) => {
 
                             return output;
                         }
-                    },
-                    {
-                        data: null,
-                        render: (data, type, row) => {
-                            return '-'
-                        }
-                    },
+                    }
                 ],
                 order: [[0, "asc"]]
             })
+        },
+        add: () => {
+            eventListener();
         }
     }
 })(AppLibrary)
@@ -1365,30 +1422,37 @@ const MainController = ( () => {
 
     const setRoute = () => {
         let path;
-        
-
+    
         if (location.hash) {
             path = location.hash.substr(1);
-            loadContent(path, '.main');
-            
+            loadContent(path, '.main');     
         } else {
             if(getUser){
                 if(getUser.level === 'mahasiswa'){
                     location.href = '#/formulir';   
                 }else{
                     location.href = '#/dashboard';
+                    activeLink('#/dashboard')
                 }
             }else{
                 location.href = '/'
             }
             
-            // location.replace('app/#/dashboard')
         }
 
         $(window).on('hashchange', function () {
             path = location.hash;
             loadContent(path.substr(1), '.main');
+            activeLink(path)
         });  
+    }
+
+    const activeLink = (path) => {
+        console.log(path)
+        $('a').removeClass('active');
+        // $('a').closest('li').removeClass('active open');
+
+        $('a[href="' + path + '"]').addClass('active');
     }
 
     const loadContent = (path, element) => {

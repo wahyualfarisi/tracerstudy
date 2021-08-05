@@ -37,12 +37,6 @@ class JawabanSeeder extends Seeder
                 'created_at' => date('Y-m-d'),
                 'updated_at' => date('Y-m-d')
             ],
-            [
-                'id_pertanyaan' => 1,
-                'jawaban' => 'Lainnya',
-                'created_at' => date('Y-m-d'),
-                'updated_at' => date('Y-m-d')
-            ],
 
             //untuk pertanyaan no. 2
             [
@@ -78,12 +72,6 @@ class JawabanSeeder extends Seeder
             [
                 'id_pertanyaan' => 2,
                 'jawaban' => ' Beasiswa Perusahaan/Swasta',
-                'created_at' => date('Y-m-d'),
-                'updated_at' => date('Y-m-d')
-            ],
-            [
-                'id_pertanyaan' => 2,
-                'jawaban' => 'Lainnya',
                 'created_at' => date('Y-m-d'),
                 'updated_at' => date('Y-m-d')
             ],
@@ -163,43 +151,43 @@ class JawabanSeeder extends Seeder
             //untuk pertanyaan no. 6
             [
                 'id_pertanyaan' => 6,
-                'jawaban' => '> 3000000',
+                'jawaban' => '> 3,000,000',
                 'created_at' => date('Y-m-d'),
                 'updated_at' => date('Y-m-d')
             ],
             [
                 'id_pertanyaan' => 6,
-                'jawaban' => '> 5000000',
+                'jawaban' => '> 5,000,000',
                 'created_at' => date('Y-m-d'),
                 'updated_at' => date('Y-m-d')
             ],
             [
                 'id_pertanyaan' => 6,
-                'jawaban' => '> 8000000',
+                'jawaban' => '> 8,000,000',
                 'created_at' => date('Y-m-d'),
                 'updated_at' => date('Y-m-d')
             ],
             [
                 'id_pertanyaan' => 6,
-                'jawaban' => '> 10000000',
+                'jawaban' => '> 10,000,000',
                 'created_at' => date('Y-m-d'),
                 'updated_at' => date('Y-m-d')
             ],
             [
                 'id_pertanyaan' => 6,
-                'jawaban' => '> 15000000',
+                'jawaban' => '> 15,000,000',
                 'created_at' => date('Y-m-d'),
                 'updated_at' => date('Y-m-d')
             ],
             [
                 'id_pertanyaan' => 6,
-                'jawaban' => '> 25000000',
+                'jawaban' => '> 25,000,000',
                 'created_at' => date('Y-m-d'),
                 'updated_at' => date('Y-m-d')
             ],
             [
                 'id_pertanyaan' => 6,
-                'jawaban' => '> 50000000',
+                'jawaban' => '> 50,000,000',
                 'created_at' => date('Y-m-d'),
                 'updated_at' => date('Y-m-d')
             ],
@@ -252,12 +240,6 @@ class JawabanSeeder extends Seeder
             [
                 'id_pertanyaan' => 8,
                 'jawaban' => '> 1 Tahun Sesudah Lulus',
-                'created_at' => date('Y-m-d'),
-                'updated_at' => date('Y-m-d')
-            ],
-            [
-                'id_pertanyaan' => 8,
-                'jawaban' => 'Lainnya',
                 'created_at' => date('Y-m-d'),
                 'updated_at' => date('Y-m-d')
             ],
@@ -331,12 +313,6 @@ class JawabanSeeder extends Seeder
                 'created_at' => date('Y-m-d'),
                 'updated_at' => date('Y-m-d')
             ],
-            [
-                'id_pertanyaan' => 10,
-                'jawaban' => 'Lainnya',
-                'created_at' => date('Y-m-d'),
-                'updated_at' => date('Y-m-d')
-            ],
 
             //untuk pertanyaan no. 11
             [
@@ -360,12 +336,6 @@ class JawabanSeeder extends Seeder
             [
                 'id_pertanyaan' => 11,
                 'jawaban' => '5 Perusahan',
-                'created_at' => date('Y-m-d'),
-                'updated_at' => date('Y-m-d')
-            ],
-            [
-                'id_pertanyaan' => 11,
-                'jawaban' => 'Lainnya',
                 'created_at' => date('Y-m-d'),
                 'updated_at' => date('Y-m-d')
             ],
@@ -395,12 +365,6 @@ class JawabanSeeder extends Seeder
                 'created_at' => date('Y-m-d'),
                 'updated_at' => date('Y-m-d')
             ],
-            [
-                'id_pertanyaan' => 12,
-                'jawaban' => 'Lainnya',
-                'created_at' => date('Y-m-d'),
-                'updated_at' => date('Y-m-d')
-            ],
 
             //untuk pertanyaan no. 13
             [
@@ -424,12 +388,6 @@ class JawabanSeeder extends Seeder
             [
                 'id_pertanyaan' => 13,
                 'jawaban' => 'Saya sekarang sedang mencari pekerjaan',
-                'created_at' => date('Y-m-d'),
-                'updated_at' => date('Y-m-d')
-            ],
-            [
-                'id_pertanyaan' => 13,
-                'jawaban' => 'Lainnya',
                 'created_at' => date('Y-m-d'),
                 'updated_at' => date('Y-m-d')
             ],
@@ -459,12 +417,6 @@ class JawabanSeeder extends Seeder
                 'created_at' => date('Y-m-d'),
                 'updated_at' => date('Y-m-d')
             ],
-            [
-                'id_pertanyaan' => 14,
-                'jawaban' => 'Lainnya',
-                'created_at' => date('Y-m-d'),
-                'updated_at' => date('Y-m-d')
-            ],
 
             //untuk pertanyaan no. 15
             [
@@ -488,12 +440,6 @@ class JawabanSeeder extends Seeder
             [
                 'id_pertanyaan' => 15,
                 'jawaban' => 'Wiraswasta/perusahaan sendiri',
-                'created_at' => date('Y-m-d'),
-                'updated_at' => date('Y-m-d')
-            ],
-            [
-                'id_pertanyaan' => 15,
-                'jawaban' => 'Lainnya',
                 'created_at' => date('Y-m-d'),
                 'updated_at' => date('Y-m-d')
             ],
@@ -571,12 +517,6 @@ class JawabanSeeder extends Seeder
                 'created_at' => date('Y-m-d'),
                 'updated_at' => date('Y-m-d')
             ],
-            [
-                'id_pertanyaan' => 16,
-                'jawaban' => 'Lainnya',
-                'created_at' => date('Y-m-d'),
-                'updated_at' => date('Y-m-d')
-            ],
 
             //untuk pertanyaan no. 17
             [
@@ -648,12 +588,6 @@ class JawabanSeeder extends Seeder
             [
                 'id_pertanyaan' => 17,
                 'jawaban' => 'Pada awal meniti karir ini, saya harus menerima pekerjaan yang tidak berhubungan dengan pendidikan saya',
-                'created_at' => date('Y-m-d'),
-                'updated_at' => date('Y-m-d')
-            ],
-            [
-                'id_pertanyaan' => 17,
-                'jawaban' => 'Lainnya',
                 'created_at' => date('Y-m-d'),
                 'updated_at' => date('Y-m-d')
             ],

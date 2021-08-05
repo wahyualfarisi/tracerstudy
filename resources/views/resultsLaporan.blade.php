@@ -26,7 +26,7 @@
             <img src="{{ asset('assets/img/logo.png') }}" width="230px" /> 
             <h4 class="welcome_heading">Laporan Tracer Study</h4>
             <h6>Fakultas Ilmu Komputer</h6>
-            <h6>Tahun Kelulusan 2021</h6>
+            <h6>Tahun Kelulusan {{ $year }}</h6>
         </div>
 
         <div class="laporan_data">
@@ -53,7 +53,8 @@
     <script src="{{asset('src/app-controller.js')}}"></script>
     <script>
         $(function() {
-            LaporanControllor.data();
+            var YEAR = "{{ $year }}"
+            LaporanControllor.data(YEAR);
         })
     </script>
 </body>

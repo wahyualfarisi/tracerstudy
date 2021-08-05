@@ -1,5 +1,9 @@
 <h4>Data Master</h4>
 
+<div class="button-table mb-5">
+    <a href="#/data-master/add" class="btn btn-primary">Tambah Data</a>
+</div>
+
 <div class="section section-data-tables">
   <div class="row">
 
@@ -13,7 +17,6 @@
                               <thead>
                                   <tr>
                                       <th>Pertanyaan</th>
-                                      <th>Options</th>
                                   </tr>
                               </thead>
                               <tbody>
@@ -22,7 +25,6 @@
                               <tfoot>
                                   <tr>
                                     <th>Pertanyaan</th>
-                                    <th>Options</th>
                                   </tr>
                               </tfoot>
                           </table>

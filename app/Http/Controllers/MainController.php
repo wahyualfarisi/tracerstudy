@@ -17,6 +17,9 @@ class MainController extends Controller
     public function dataMaster(){
         return view('dataMaster');
     }
+    public function addDataMaster(){
+        return view('addDataMaster');
+    }
 
     public function dataMahasiswa(){
         return view('dataMahasiswa');
@@ -48,8 +51,9 @@ class MainController extends Controller
     public function laporan(){
         return view('laporan');
     }
-    public function laporan_results(){
-        return view('resultsLaporan');
+    public function laporan_results($year){
+        $data['year'] = $year;
+        return view('resultsLaporan', $data);
     }
 
     //Mahasiswa route

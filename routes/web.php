@@ -33,6 +33,7 @@ Route::get('/konfirmasi_sukses', function() {
 Route::get('/app', 'MainController@index');
 Route::get('/dashboard', 'MainController@dashboard');
 Route::get('/data-master', 'MainController@dataMaster');
+Route::get('/data-master/add', 'MainController@addDataMaster');
 Route::get('/data-mahasiswa', 'MainController@dataMahasiswa');
 Route::get('/data-mahasiswa/pending', 'MainController@dataMahasiswaPending');
 Route::get('/detailmhs/{id_mahasiswa}', 'MainController@detailMahasiswa');

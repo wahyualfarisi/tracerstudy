@@ -21,6 +21,20 @@ p {
     font-size: 1rem;
 }
 
+/* Navigation Link */
+a.active {
+    background-color: #195671;
+    border-radius: 1rem;
+}
+
+a.link_small_end {
+    display: flex;
+    justify-content: flex-end;
+    font-size: .7rem;
+    color: rgb(38, 0, 255);
+}
+
+
 /* Welcome Start -------------------------------------------------------------- */
 .welcome {
     background-color: var(--color-primary);
