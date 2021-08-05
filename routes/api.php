@@ -45,3 +45,8 @@ Route::post('/pengisian/submitFormulir', 'api\PengisianController@submitFormulir
 //Dashboard
 Route::get('/dashboard/full', 'api\DashboardController@full');
 Route::get('/laporan', 'api\DashboardController@laporan');
+
+//User
+Route::get('/user', 'api\UserController@index');
+Route::post('/user/add', 'api\UserController@create');
+Route::post('/user/update/{id_user}', 'api\UserController@update');

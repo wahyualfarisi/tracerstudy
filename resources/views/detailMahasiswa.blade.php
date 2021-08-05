@@ -3,7 +3,7 @@
 <div class="row" style="margin-top: 3rem">
     <div class="col-md-2">
         <img src="{{ asset('assets/img/default_image.png') }}" width="100%" class="img-responsive preview_image" alt="default">
-        <button class="btn btn-primary" id="btn_konfirmasi" style="display: none">Konfirmasi</button>
+        <button class="btn btn-primary col-md-12" id="btn_konfirmasi" style="display: none">Konfirmasi</button>
         
         <label class="custom-file-upload col-md-12">
             <input type="file" class="custome_upload" name="photo" />
