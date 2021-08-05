@@ -1,11 +1,15 @@
 <h4>Data Diri</h4>
 
 <div class="row">
-    <div class="col-md-3">
-        <img src="{{ asset('assets/img/default_image.png') }}" width="100%" class="img-responsive" alt="default">
+    <div class="col-md-2">
+        <img src="{{ asset('assets/img/default_image.png') }}" width="100%" class="img-responsive preview_image" alt="default">
         <button class="btn btn-primary" id="btn_konfirmasi" style="display: none">Konfirmasi</button>
+        <label class="custom-file-upload col-md-12">
+            <input type="file" class="custome_upload" name="photo" />
+            <i class="fa fa-cloud-upload"></i> Upload Foto
+        </label>
     </div>
-    <div class="col-md-9">
+    <div class="col-md-10">
         <form class="form_login" id="form_login">
 
             <div class="row">

@@ -197,3 +197,53 @@ p {
 
 
 /* Pengisian Formulir -------------------------------------------------------------- */
+
+
+
+.laporan_container {
+    width: 70%;
+    margin: auto;
+}
+.laporan_header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 3rem;
+}
+.laporan_list_jawabans {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.laporan_jawaban_item {
+    display: flex;
+    align-items: center;
+    border: 1px solid var(--color-primary);
+}
+.laporan_jawaban_item > span {
+    background-color: #ccc;
+    padding: 1rem;
+    font-weight: 900;
+    width: 200px;
+}
+.laporan_jawaban_item > p {
+    margin: 0;
+    margin-left: 1rem;
+    font-size: .8rem;
+    width: 100%;
+}
+
+
+
+
+
+.custome_upload {
+    display: none;
+}
+.custom-file-upload {
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+}

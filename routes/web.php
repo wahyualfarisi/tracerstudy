@@ -44,6 +44,7 @@ Route::get('/buat-jadwal', 'MainController@buatJadwal');
 
 Route::get('/setSession', 'MainController@setSession');
 Route::get('/laporan', 'MainController@laporan');
+Route::get('/laporan/results/{year}', 'MainController@laporan_results');
 
 //only mahasiswa
 Route::get('/formulir', 'MainController@formulir');

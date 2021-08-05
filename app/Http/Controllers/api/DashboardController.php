@@ -4,8 +4,12 @@ namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 use App\Mahasiswa;
+use App\JadwalPengisian;
+use App\Pertanyaan;
+
 
 class DashboardController extends Controller
 {
@@ -32,5 +36,35 @@ class DashboardController extends Controller
                 'belum_bekerja' => $belum_bekerja
             ]
         ]);
+    }
+
+    public function laporan(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'tahun_kelulusan' => 'required'
+        ]);
+
+        if($validator->fails())
+        return response()->json([
+            'status'   => false,
+            'message'  => 'Fields required',
+            'errors' => $validator->errors()
+        ]);
+
+        $jadwal = JadwalPengisian::with('getpengisianDetails')->where('tahun_kelulusan', $request->tahun_kelulusan)->first();
+        
+        $pertanyaan = Pertanyaan::with('getJawabans')->get();
+        
+        return response()->json([
+            'status'  => true,
+            'message'  => 'Laporan',
+            'results' => [
+                'isian' => $jadwal,
+                'pertanyaan' => $pertanyaan
+            ]
+        ]);
+
+        
+
     }
 }

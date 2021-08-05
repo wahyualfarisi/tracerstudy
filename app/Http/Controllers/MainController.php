@@ -48,6 +48,9 @@ class MainController extends Controller
     public function laporan(){
         return view('laporan');
     }
+    public function laporan_results(){
+        return view('resultsLaporan');
+    }
 
     //Mahasiswa route
     public function formulir(){

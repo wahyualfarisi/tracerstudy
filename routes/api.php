@@ -20,12 +20,15 @@ Route::post('/mahasiswa/addPekerjaan', 'MahasiswaController@addPekerjaan');
 Route::get('/mahasiswa/{id_mahasiswa}', 'MahasiswaController@show');
 Route::get('/mahasiswa/foto/{filename}', 'MahasiswaController@mahasiswa_foto');
 Route::post('/mahasiswa/update/{id_mahasiswa}', 'MahasiswaController@mahasiswa_update');
+Route::post('/mahasiswa/upload_foto', 'MahasiswaController@upload_photo');
 
 
 //Auth Controller
 Route::post('/login', 'api\AuthController@login');
 
 Route::get('/pertanyaan', 'api\Formulir@getPertanyaan');
+Route::post('/pertanyaan/create', 'api\Formulir@createPertanyaan');
+Route::post('/pertanyaan/update/{id_pertanyaan}', 'api\Formulir@updatePertanyaan');
 
 //Pengisian
 Route::get('/pengisian/getListJadwal', 'api\PengisianController@getListJadwal');
@@ -41,3 +44,4 @@ Route::post('/pengisian/submitFormulir', 'api\PengisianController@submitFormulir
 
 //Dashboard
 Route::get('/dashboard/full', 'api\DashboardController@full');
+Route::get('/laporan', 'api\DashboardController@laporan');

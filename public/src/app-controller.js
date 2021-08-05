@@ -1,3 +1,90 @@
+const LaporanControllor = ( (LIB) => {
+
+    const loadLaporan = () => {
+
+        LIB.getFree(
+            `/api/laporan`,
+            {
+                tahun_kelulusan: 2021
+            },
+            null,
+            res => {
+               displayLaporan(res.results)
+            },
+            err => {
+                console.log(err);
+            }
+        )
+    }
+
+    const displayLaporan = (data) => {
+        console.log( data );
+        const { isian, pertanyaan } = data;
+        const pengisian_details = isian.getpengisian_details;
+
+        console.log( pengisian_details );
+
+        //display
+        let output_pertanyaan = '';
+        pertanyaan.forEach(item => {
+            let list_jawaban = '';
+
+            item.get_jawabans.forEach(item => {
+                let count = pengisian_details.filter(isian_mhs => isian_mhs.id_jawaban === item.id_jawaban ).length;
+
+    
+                list_jawaban += `
+                    <li class="laporan_jawaban_item">
+                        <span>${count} Jawaban</span>
+                        <p> ${item.jawaban} </p>
+                    </li>
+                `;
+            })
+            output_pertanyaan += `
+            <tr>
+                <td style="width: 250px;">${item.pertanyaan}</td>
+                <td>
+                    <ul class="laporan_list_jawabans">
+                       ${list_jawaban}
+                    </ul>
+                </td>
+            </tr>
+            `;
+        })
+        $('#laporan_body').html( output_pertanyaan );
+    }
+
+    const submitLaporan = () => {
+        $('#form_laporan').on('submit', function(e) {
+            e.preventDefault();
+        }).validate({
+            errorPlacement: function (error, element) {
+                error.css('color','red').css('fontSize', '10px').addClass('right')
+
+                var placement = $(element).data("error");
+                if (placement) {
+                    $(placement).append(error);
+                } else {
+                    error.insertAfter(element);
+                }
+            },
+            submitHandler: function(form) {
+                const tahun_kelulusan = $('[name=tahun_kelulusan]').val();
+                location.href = `/laporan/results/${tahun_kelulusan}`
+            }
+        })
+    }
+
+    return {
+        data: () => {
+            loadLaporan()
+        },
+        form: () => {
+            submitLaporan()
+        }
+    }
+})(AppLibrary)
+
 const DashboardController = (( LIB ) => {
     let getUser = JSON.parse( localStorage.getItem('payload_tracerstudy') );
 
@@ -696,6 +783,7 @@ const MahasiswaController = ( (LIB, IMG_COMPRESS) => {
                     $('[name=judul_skripsi]').val(res.results.judul_skripsi);
                     $('[name=dospem_1]').val(res.results.dospem_1);
                     $('[name=dospem_2]').val(res.results.dospem_2)
+                    $('[name=photo]').attr('data-id_mahasiswa', res.results.id_mahasiswa);
 
                     if(res.results.photo) {
                         $('.img-responsive').attr('src', `/api/mahasiswa/foto/${res.results.photo}`)
@@ -891,6 +979,38 @@ const MahasiswaController = ( (LIB, IMG_COMPRESS) => {
         $('.pengisianFormulir').html(output);
     }
 
+    const uploadFotoListener = () => {
+        $('[name=photo]').on('change', function(e) {
+            LIB.previewImage(e, '.preview_image')
+
+            setTimeout( () => {
+                let id_mahasiswa = $(this).data('id_mahasiswa');
+                let photo_compress = IMG_COMPRESS.init('.preview_image');
+                let form = new FormData();
+                form.append('photo', photo_compress.blob, photo_compress.replaceName);
+                form.append('id_mahasiswa', id_mahasiswa);
+    
+                LIB.postBlobData(
+                    `/api/mahasiswa/upload_foto`,
+                    form,
+                    'Loading...',
+                    res => {
+                        console.log(res);
+                        $.notify("Berhasil Upload foto", "success");
+                    },
+                    err => {
+                        $.notify("Silahkan coba lagi", "danger");
+                    }
+                );
+            }, 1500);
+            
+
+        })
+
+        $('#upload').on('click', function() {
+            
+        })
+    }
     return {
         registrasi: () => {
             eventListener();
@@ -1128,6 +1248,7 @@ const MahasiswaController = ( (LIB, IMG_COMPRESS) => {
         datadiri: () => {
             if(getUser){
                 loadDetailMahasiswa(getUser.payload.id_mahasiswa)
+                uploadFotoListener();
             }
         },
         listPekerjaan: () => {
@@ -1229,6 +1350,7 @@ const MahasiswaController = ( (LIB, IMG_COMPRESS) => {
         detail: (id_mahasiswa) => {
             onConfirmMahasiswa(id_mahasiswa);
             loadDetailMahasiswa(id_mahasiswa)
+            uploadFotoListener();
         },
         addPekerjaan: () => {
             eventListener();

@@ -28,4 +28,16 @@ class JadwalPengisian extends Model
     public function getDataPengisian(){
         return $this->hasMany('App\Pengisian', 'id_jadwal', 'id_jadwal');
     }
+
+    public function getpengisianDetails(){
+        return $this->hasManyThrough(
+                PengisianDetail::class, 
+                Pengisian::class,
+                'id_jadwal',
+                'id_pengisian',
+                'id_jadwal',
+                'id_pengisian'
+        );
+    }
+
 }

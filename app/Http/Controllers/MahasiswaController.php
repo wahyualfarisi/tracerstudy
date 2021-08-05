@@ -185,5 +185,37 @@ class MahasiswaController extends Controller
         }
     }
 
+    public function upload_photo(Request $request){
+        $filenametostore = null;
+        
+        if($request->file('photo')){
+            try{
+                $image           = $request->file('photo');
+                $name            = $image->getClientOriginalName();
+    
+                $filename        = pathinfo($name, PATHINFO_FILENAME);
+    
+                $extension       = $image->getClientOriginalExtension();
+    
+                $filenametostore = time().'.'.$extension;
+    
+                $add             = $image->storeAs('public/foto/mahasiswa/', $filenametostore);
+            }catch(\Exception $e){
+                $filenametostore = null;
+            }
+
+            $update = Mahasiswa::findOrFail($request->id_mahasiswa);
+            $update->photo = $filenametostore;
+            $update->update();
+        }
+
+        return response()->json([
+            'status' => true,
+            'results' => 'berhasil upload'
+        ]);
+
+
+    }
+
 
 }
