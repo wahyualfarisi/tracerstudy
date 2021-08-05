@@ -213,7 +213,55 @@ class MahasiswaController extends Controller
             'status' => true,
             'results' => 'berhasil upload'
         ]);
+    }
 
+    public function updateMahasiswa(Request $request, $id_mahasiswa)
+    {
+        $validate = Validator::make( $request->all(), [
+            'nim' => 'required',
+            'tahun_lulus' => 'required',
+            'kode_prodi' => 'required',
+            'nama_lengkap' => 'required',
+            'no_telepon' => 'required',
+            'email' => 'required',
+            'alamat' => 'required',
+            'kode_pos' => 'required',
+            'tanggal_ujian_skripsi' => 'required',
+            'judul_skripsi' => 'required',
+            'dospem_1' => 'required',
+            'dospem_2' => 'required',
+            'ipk' => 'required',
+        ]);
+
+        if( $validate->fails() )
+        return response()->json([
+            'status' => false,
+            'message' => 'Fields Required',
+            'errors' => $validate->errors()
+        ]);
+
+        $findOrfail = Mahasiswa::findOrFail($id_mahasiswa);
+
+        $findOrfail->nim = $request->nim;
+        $findOrfail->tahun_lulus = $request->tahun_lulus;
+        $findOrfail->kode_prodi = $request->kode_prodi;
+        $findOrfail->nama_lengkap = $request->nama_lengkap;
+        $findOrfail->no_telepon = $request->no_telepon;
+        $findOrfail->email = $request->email;
+        $findOrfail->alamat = $request->alamat;
+        $findOrfail->kode_pos = $request->kode_pos;
+        $findOrfail->tanggal_ujian_skripsi = $request->tanggal_ujian_skripsi;
+        $findOrfail->dospem_1 = $request->dospem_1;
+        $findOrfail->dospem_2 = $request->dospem_2;
+        $findOrfail->ipk = $request->ipk;
+
+        $findOrfail->update();
+
+        return response()->json([
+            'status'   => true,
+            'message'  => 'Berhasil mengupdate mahasiswa',
+            'results'  => $findOrfail
+        ]);
 
     }
 
