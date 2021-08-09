@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\User;
+use Hash;
+use Illuminate\Support\Facades\Crypt;
 
 class MainController extends Controller
 {
@@ -54,6 +57,21 @@ class MainController extends Controller
     public function laporan_results($year){
         $data['year'] = $year;
         return view('resultsLaporan', $data);
+    }
+
+    
+    //Users
+    public function dataUser(){
+        return view('dataUser');
+    }
+    public function addUser() {
+        return view('addUser');
+    }
+    public function updateUser($id_user) {
+        $getUser = User::findOrFail($id_user);
+        $data['id'] = $id_user;
+        $data['user'] = $getUser;
+        return view('updateUser', $data);
     }
 
     //Mahasiswa route

@@ -68,7 +68,16 @@
     margin-left: 250px; /* Same as the width of the sidenav */
     font-size: 1rem; /* Increased text to enable scrolling */
     padding: 4rem 2rem;
+    
+  }
 
+  .bg-main {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: linear-gradient(180deg,#fff,#a3c3e2);
   }
 
   .button-signout {

@@ -43,6 +43,10 @@ Route::get('/jadwal-pengisian/{id_jadwal}', 'MainController@detailJadwal');
 Route::get('/jadwal-pengisian/lihat_formulir/{id_mahasiswa}', 'MainController@lihatFormulirMahasiswa');
 Route::get('/buat-jadwal', 'MainController@buatJadwal');
 
+Route::get('/users', 'MainController@dataUser');
+Route::get('/users/add', 'MainController@addUser');
+Route::get('/users/update/{id_user}', 'MainController@updateUser');
+
 Route::get('/setSession', 'MainController@setSession');
 Route::get('/laporan', 'MainController@laporan');
 Route::get('/laporan/results/{year}', 'MainController@laporan_results');

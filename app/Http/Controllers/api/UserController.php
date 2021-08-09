@@ -14,7 +14,7 @@ class UserController extends Controller
     {
         return response()->json([
             'status'   => true,
-            'message'  => User::all()
+            'results'  => User::all()
         ]);
     }
 

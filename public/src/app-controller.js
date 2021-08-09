@@ -1,3 +1,194 @@
+const UserController = ( (LIB) => {
+
+    const eventListener = () => {
+
+        $('#form_user').on('submit', function(e) {
+            e.preventDefault();
+        }).validate({
+            errorPlacement: function (error, element) {
+                error.css('color','red').css('fontSize', '10px').addClass('right')
+
+                var placement = $(element).data("error");
+                if (placement) {
+                    $(placement).append(error);
+                } else {
+                    error.insertAfter(element);
+                }
+            },
+            submitHandler: function(form) {
+                LIB.postRes(
+                    `/api/user/add`,
+                    form,
+                    'Loading...',
+                    res => {
+                        console.log(res);
+                        if(res.status){
+                            location.hash = '#/users'
+                            $.notify("Berhasil membuat user", "success");
+                        }else{
+                            alert(res.message)
+                        }
+                    },
+                    err => {
+                        console.log(err);
+                        $.notify("Silahkan coba lagi", "error");
+                    }
+                )
+            }
+        });
+
+        
+    }
+
+    const submitUpdate = (id) => {
+        $('#form_user_update').on('submit', function(e) {
+            e.preventDefault();
+        }).validate({
+            errorPlacement: function (error, element) {
+                error.css('color','red').css('fontSize', '10px').addClass('right')
+
+                var placement = $(element).data("error");
+                if (placement) {
+                    $(placement).append(error);
+                } else {
+                    error.insertAfter(element);
+                }
+            },
+            submitHandler: function(form) {
+                LIB.postRes(
+                    `/api/user/update/${id}`,
+                    form,
+                    'Loading...',
+                    res => {
+                        console.log(res);
+                        if(res.status){
+                            location.hash = '#/users'
+                            $.notify("Berhasil update user", "success");
+                        }else{
+                            alert(res.message)
+                        }
+                    },
+                    err => {
+                        console.log(err);
+                        $.notify("Silahkan coba lagi", "error");
+                    }
+                )
+            }
+        })
+    }
+
+
+    return {
+        data: () => {
+            let t_user = $('#t_user').DataTable({
+                columnDefs: [],
+                processing: false,
+                language: LIB.dtLanguage(),
+                dom: '<Bf<t>ip>',
+                keys: { columns: [0, 1, 2, 3] },
+                pageLength: 50,
+                scrollY: 500,
+                scrollX: true,
+                buttons: {
+                    dom: {
+                        button: {
+                            tag: 'button',
+                            className: 'btn btn-small sb-bgc-second-color my-action'
+                        }
+                    },
+                    buttons: [
+                        {
+                            extend: 'collection',
+                            text: '<i class="fa fa-download" aria-hidden="true"></i>',
+                            buttons: [
+                                {
+                                    extend: 'excelHtml5',
+                                    text: 'Excel',
+                                    exportOptions: {
+                                        columns: [0,1,2,3]
+                                    },
+                                    filename: 'DATA_USER',
+                                    title: 'Data User'
+                                },
+                                {
+                                    extend: 'csvHtml5',
+                                    text: 'CSV',
+                                    exportOptions: {
+                                        columns: [0,1,2,3]
+                                    },
+                                    filename: 'DATA_USER',
+                                    title: 'Data User'
+                                },
+                            ]
+                        }
+                    ]
+                },
+                ajax: LIB.dtSettingSrc(
+                    `/api/user`,
+                    {},
+                    res => {
+                        return res.results
+                    },
+                    err => {
+                        let {
+                            error,
+                            message
+                        } = err.responseJSON
+                    }
+                ),
+                columns: [
+                    {
+                        data: null,
+                        render: (data, type, row) => {
+                            return row.email
+                        }
+                    },
+                    {
+                        data: null,
+                        render: (data, type, row) => {
+                            return row.nama_lengkap
+                        }
+                    },
+                    {
+                        data: null,
+                        render: (data, type, row) => {
+                          let level;
+                          if(row.level === 'SBK'){
+                              level = 'Seksi Bidang Kemahasiswaan'
+                          }else if(row.level === 'TU'){
+                              level = 'TU'
+                          }
+
+                          return level
+                        }
+                    },
+                    {
+                        data: null,
+                        render: (data, type, row) => {
+                          return row.created_at;
+                        }
+                    },
+                    {
+                        data: null,
+                        render: (data, type, row) => {
+                            return `<a href="#/users/update/${row.id_user}"> Edit </a>`
+                        }
+                    },
+                ],
+                order: [[1, "asc"]]
+            })
+        },
+        add: () => {
+            eventListener()
+        },
+        update: (id) => {
+            submitUpdate(id)
+        }
+    }
+})( AppLibrary )
+
+
+
 const LaporanControllor = ( (LIB) => {
 
     const loadLaporan = ( year ) => {
@@ -250,7 +441,7 @@ const JadwalPengisianController = ( (LIB) => {
     }
 
     const displayDetailJadwal = (data) => {
-        console.log(data)
+        
         const { jadwal_detail, mahasiswa_yang_belum_mengisi } = data;
 
         const { get_data_pengisian } = jadwal_detail;
@@ -1490,6 +1681,7 @@ const MainController = ( () => {
                 case 'TU':
                     $('.menus').html(`
                         <a href="#/dashboard">Dashboard</a>
+                        <a href="#/users">Data User</a>
                         <a href="#/data-master">Data Master</a>
                         <a href="#/data-mahasiswa">Data Mahasiswa</a>
                         <a href="#/jadwal-pengisian">Data Jadwal Pengisian</a>
