@@ -217,26 +217,30 @@ const LaporanControllor = ( (LIB) => {
         
         //display
         let output_pertanyaan = '';
-        pertanyaan.forEach(item => {
+        pertanyaan.forEach(p => {
             let list_jawaban = '';
-
-            item.get_jawabans.forEach(item => {
+            p.get_jawabans.forEach(item => {
+                
                 
                 let count = 0;
                 if(pengisian_details){
                     count = pengisian_details.filter(isian_mhs => isian_mhs.id_jawaban === item.id_jawaban ).length;
                 }
+
+                let percentage = (count / p.get_jawabans.length) * 100;
+
     
                 list_jawaban += `
                     <li class="laporan_jawaban_item">
-                        <span>${count} koresponden</span>
+                        <span>${ Math.floor(percentage) } % </span>
                         <p> ${item.jawaban} </p>
                     </li>
                 `;
             })
+            
             output_pertanyaan += `
             <tr>
-                <td style="width: 250px;">${item.pertanyaan}</td>
+                <td style="width: 250px;">${p.pertanyaan}</td>
                 <td>
                     <ul class="laporan_list_jawabans">
                        ${list_jawaban}
