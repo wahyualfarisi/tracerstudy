@@ -259,7 +259,20 @@ class PengisianController extends Controller
             'errors'  => $validator->errors()
         ]);
 
+
+        //check pengisian;
         $pengisian = Pengisian::findOrFail($request->id_pengisian);
+        $check = $pengisian->getPengisianDetails->toArray();
+
+        foreach($check as $item){
+            if($item['id_jawaban'] == null){
+                return response()->json([
+                    'status'   => false,
+                    'message'  => 'Formulir belum terisi semua, silahkan check kembali sebelum mengirim'
+                ]);
+            }
+        }
+        
         $pengisian->status = 'finish';
         $pengisian->update();
 

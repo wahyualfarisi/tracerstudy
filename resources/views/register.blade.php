@@ -163,7 +163,7 @@
             </div>
 
             <div class="form-group">
-                <label for="photo">Foto</label>
+                <label for="photo">Foto Mahasiswa</label>
                 <input 
                     type="file" 
                     class="form-control" 

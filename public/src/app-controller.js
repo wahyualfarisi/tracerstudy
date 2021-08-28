@@ -579,7 +579,10 @@ const JadwalPengisianController = ( (LIB) => {
                     {
                         data: null,
                         render: (data, type, row) => {
-                            return `<a href="#/jadwal-pengisian/${row.id_jadwal}"> Lihat </a>`
+                            return `
+                                <a href="#/jadwal-pengisian/${row.id_jadwal}" style="margin-right: 1rem"> Lihat </a>
+                                <a href="#/jadwal-pengisian/edit/${row.id_jadwal}"> Edit </a>
+                            `
                         }
                     },
                 ],
@@ -588,6 +591,35 @@ const JadwalPengisianController = ( (LIB) => {
         },
         add: () => {
             eventListener();
+        },
+        edit: (id) => {
+            LIB.getFree(
+                `/api/pengisian/detailJadwal/${id}`,
+                {},
+                null,
+                res => {
+                    console.log(res);
+                    $('[name=tanggal_dimulai]').val(res.results.jadwal_detail.tanggal_dimulai)
+                    $('[name=tanggal_selesai]').val(res.results.jadwal_detail.tanggal_selesai)
+                },
+                err => {
+                    console.log(err);
+                }
+            )
+            $('#form_edit_jadwal').on('submit', function(e) {
+                e.preventDefault();
+                LIB.postRes(
+                    `/api/pengisian/editJadwal/${id}`,
+                    this,
+                    'Loading',
+                    res => {
+                        location.hash = '#/jadwal-pengisian'
+                    },
+                    err => {
+                        console.log(err);
+                    }
+                )
+            })
         },
         detail: (id) => {
             loadDetailJadwal(id);
@@ -999,10 +1031,11 @@ const MahasiswaController = ( (LIB, IMG_COMPRESS) => {
                 newform,
                 'Loading',
                 res => {
-                    console.log(res);
                     if(res.status){
                         $.notify("Formulir berhasil di submit", "success");
                         location.hash = '#/formulir';
+                    }else{
+                        $.notify(res.message);
                     }
                 },
                 err => {
@@ -1039,6 +1072,8 @@ const MahasiswaController = ( (LIB, IMG_COMPRESS) => {
 
                     if(res.results.status === 'pending'){
                         $('#btn_konfirmasi').show();
+                    }else{
+                        $('#table_pekerjaan').show();
                     }
 
                     let output = '';
@@ -1074,7 +1109,7 @@ const MahasiswaController = ( (LIB, IMG_COMPRESS) => {
             if(c){
                
                 LIB.postRes(
-                    `/api/mahasiswa/update/${id}?update_status=verified`,
+                    `/api/mahasiswa/update_status/${id}?update_status=verified`,
                     null,
                     'loading',
                     res => {

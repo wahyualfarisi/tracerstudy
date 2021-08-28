@@ -19,7 +19,7 @@ Route::post('/mahasiswa/register', 'MahasiswaController@register');
 Route::post('/mahasiswa/addPekerjaan', 'MahasiswaController@addPekerjaan');
 Route::get('/mahasiswa/{id_mahasiswa}', 'MahasiswaController@show');
 Route::get('/mahasiswa/foto/{filename}', 'MahasiswaController@mahasiswa_foto');
-Route::post('/mahasiswa/update/{id_mahasiswa}', 'MahasiswaController@mahasiswa_update');
+Route::post('/mahasiswa/update_status/{id_mahasiswa}', 'MahasiswaController@mahasiswa_update');
 Route::post('/mahasiswa/upload_foto', 'MahasiswaController@upload_photo');
 Route::post('/mahasiswa/update/{id_mahasiswa}', 'MahasiswaController@updateMahasiswa');
 
