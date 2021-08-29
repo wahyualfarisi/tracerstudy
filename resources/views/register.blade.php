@@ -30,7 +30,7 @@
             <div class="form-group">
                 <label for="nim">Nim</label>
                 <input 
-                    type="text" 
+                    type="number" 
                     class="form-control" 
                     id="nim" 
                     aria-describedby="nim" 
@@ -92,7 +92,7 @@
             <div class="form-group">
                 <label for="no_telepon">No Telepon</label>
                 <input 
-                    type="text" 
+                    type="number" 
                     class="form-control" 
                     id="no_telepon" 
                     name="no_telepon"
@@ -106,7 +106,7 @@
             <div class="form-group">
                 <label for="kode_pos">Kode pos</label>
                 <input 
-                    type="text" 
+                    type="number" 
                     class="form-control" 
                     id="kode_pos" 
                     name="kode_pos"

@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Mahasiswa;
 use App\JadwalPengisian;
 use App\Pertanyaan;
+use App\Pengisian;
 
 
 class DashboardController extends Controller
@@ -53,6 +54,16 @@ class DashboardController extends Controller
 
         $jadwal = JadwalPengisian::with('getpengisianDetails')->where('tahun_kelulusan', $request->tahun_kelulusan)->first();
         
+        $jadwal_detail = JadwalPengisian::with(['dibuatOleh','getDataPengisian.getMahasiswa'])
+        ->where('id_jadwal', $jadwal->id_jadwal)
+        ->first();
+
+        $id_mahasiswa_yang_sudah_mengisi = Pengisian::where('id_jadwal', $jadwal->id_jadwal)->pluck('id_mahasiswa');
+
+        $get_mahasiswa_yang_belum_mengisi = Mahasiswa::where('tahun_lulus', $jadwal->tahun_kelulusan)
+        ->whereNotIn('id_mahasiswa', $id_mahasiswa_yang_sudah_mengisi)
+        ->get();
+
         $pertanyaan = Pertanyaan::with('getJawabans')->get();
         
         return response()->json([
@@ -60,7 +71,9 @@ class DashboardController extends Controller
             'message'  => 'Laporan',
             'results' => [
                 'isian' => $jadwal,
-                'pertanyaan' => $pertanyaan
+                'pertanyaan' => $pertanyaan,
+                'jadwal' => $jadwal_detail,
+                'belum_mengisi' => $get_mahasiswa_yang_belum_mengisi
             ]
         ]);
 

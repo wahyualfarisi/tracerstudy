@@ -211,9 +211,10 @@ const LaporanControllor = ( (LIB) => {
 
     const displayLaporan = (data) => {
         console.log( data );
-        const { isian, pertanyaan } = data;
+        const { isian, pertanyaan, jadwal } = data;
         const pengisian_details = isian ? isian.getpengisian_details : null;
 
+        $('#yang_sudah_menjawab').html(jadwal.get_data_pengisian.length)
         
         //display
         let output_pertanyaan = '';
@@ -227,12 +228,13 @@ const LaporanControllor = ( (LIB) => {
                     count = pengisian_details.filter(isian_mhs => isian_mhs.id_jawaban === item.id_jawaban ).length;
                 }
 
-                let percentage = (count / p.get_jawabans.length) * 100;
+                let percentage = (count / jadwal.get_data_pengisian.length) * 100;
 
+                // ${count} / ${jadwal.get_data_pengisian.length}
     
                 list_jawaban += `
                     <li class="laporan_jawaban_item">
-                        <span>${ Math.floor(percentage) } % </span>
+                        <span> ${Math.round(percentage) } %  </span>
                         <p> ${item.jawaban} </p>
                     </li>
                 `;

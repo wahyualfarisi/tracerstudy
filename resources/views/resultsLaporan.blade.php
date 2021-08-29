@@ -28,7 +28,7 @@
             <h6>Fakultas Ilmu Komputer</h6>
             <h6>Tahun Kelulusan {{ $year }}</h6>
         </div>
-
+        {{-- <h6>Mahasiswa yang sudah menjawab : <span id="yang_sudah_menjawab"></span> / <span></span> </h6> --}}
         <div class="laporan_data">
             <table class="table">
                 <thead>

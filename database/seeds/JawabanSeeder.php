@@ -15,13 +15,13 @@ class JawabanSeeder extends Seeder
             //untuk pertanyaan no. 1
             [
                 'id_pertanyaan' => 1,
-                'jawaban' => '> 3 bulan',
+                'jawaban' => '3 sampai 6 bulan',
                 'created_at' => date('Y-m-d'),
                 'updated_at' => date('Y-m-d')
             ],
             [
                 'id_pertanyaan' => 1,
-                'jawaban' => '> 6 bulan',
+                'jawaban' => '6 sampai 12 bulan',
                 'created_at' => date('Y-m-d'),
                 'updated_at' => date('Y-m-d')
             ],
